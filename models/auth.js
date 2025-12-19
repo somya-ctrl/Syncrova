@@ -13,8 +13,12 @@ const UserSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+      status: {
+      type: String,
+      enum: ["online", "offline", "busy", "dnd"],
+      default: "offline"
     }
-
     
 },{
     timestamps:true
