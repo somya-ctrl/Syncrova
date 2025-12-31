@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const User = require('../models/auth');
+const Message = require("../models/message");
 const Refreshtoken = require('../models/refreshtoken')
 const jwt = require('jsonwebtoken');
 async function signup(req,res){
@@ -156,5 +157,15 @@ async function updateuser(req,res){
   }
 }
 
+async function sendMessage(req, res) {
+  const message = await Message.create({
+    content: req.body.content,
+    channelId: req.params.id,
+    senderId: req.user.id
+  });
 
-module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus}
+  res.json(message);
+}
+
+
+module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage}
