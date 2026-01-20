@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const User = require('../models/auth');
 const Message = require("../models/message");
-const Refreshtoken = require('../models/refreshtoken')
+const Refreshtoken = require('../models/refreshtoken');
+const Channel =require('../models/channels');
 const jwt = require('jsonwebtoken');
 async function signup(req,res){
     try{
@@ -157,6 +158,31 @@ async function updateuser(req,res){
   }
 }
 
+async function createChannel(req, res) {
+  try {
+    const { name, serverId, type } = req.body;
+
+    if (!name || !serverId) {
+      return res.status(400).json({
+        error: "name and serverId are required"
+      });
+    }
+
+    const channel = await Channel.create({
+      name,
+      type,               
+      serverId,             
+      createdBy: req.user.id 
+    });
+
+    res.status(201).json(channel);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+
+
 async function sendMessage(req, res) {
   const message = await Message.create({
     content: req.body.content,
@@ -168,4 +194,4 @@ async function sendMessage(req, res) {
 }
 
 
-module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage}
+module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel};
