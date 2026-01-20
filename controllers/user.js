@@ -192,6 +192,58 @@ async function sendMessage(req, res) {
 
   res.json(message);
 }
+const mongoose = require("mongoose");
+
+async function getmessage(req, res) {
+  try {
+    const channelId = new mongoose.Types.ObjectId(req.params.id);
+        const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
+
+    const messages = await Message.aggregate([
+  
+      { $match: { channelId } },
+
+      { $sort: { createdAt: 1 } },
+       { $skip: skip },
+      { $limit: limit },
+
+      
+      {
+        $lookup: {
+          from: "users",
+          localField: "senderId",
+          foreignField: "_id",
+          as: "sender"
+        }
+      },
+
+      
+      { $unwind: "$sender" },
+
+      {
+        $project: {
+          content: 1,
+          channelId: 1,
+          createdAt: 1,
+          "sender._id": 1,
+          "sender.username": 1,
+          "sender.avatar": 1
+        }
+      }
+    ]);
+
+    res.status(200).json({page,
+      limit,
+      count: messages.length,
+      messages});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 
-module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel};
+
+
+module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage};
