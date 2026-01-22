@@ -197,7 +197,7 @@ const mongoose = require("mongoose");
 async function getmessage(req, res) {
   try {
     const channelId = new mongoose.Types.ObjectId(req.params.id);
-        const page = parseInt(req.query.page) || 1;
+    const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;
 
@@ -242,6 +242,35 @@ async function getmessage(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+const Message = require("../models/message");
+
+async function sendMessage(req, res) {
+  try {
+    const { content } = req.body;
+    const channelId = req.params.id;
+    const userId = req.user.id; // from auth middleware
+
+    if (!content) {
+      return res.status(400).json({ error: "Message content is required" });
+    }
+
+    // save message
+    const message = await Message.create({
+      content,
+      channelId,
+      senderId: userId
+    });
+
+    // 🔥 emit real-time message
+    req.io.to(channelId).emit("newMessage", message);
+
+    res.status(201).json(message);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = { sendMessage };
 
 
 
