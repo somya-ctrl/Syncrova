@@ -34,6 +34,10 @@ io.on("connection", (socket) => {
     console.log("User disconnected:", socket.id);
   });
 });
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
 
 const PORT = process.env.PORT || 3000;
 connectmongoDB(process.env.MONGO_URI);

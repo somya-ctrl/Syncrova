@@ -260,8 +260,6 @@ async function sendMessage(req, res) {
       channelId,
       senderId: userId
     });
-
-    // 🔥 emit real-time message
     req.io.to(channelId).emit("newMessage", message);
 
     res.status(201).json(message);
