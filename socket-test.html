@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket Test</title>
+</head>
+<body>
+  <h2>Socket.IO Test</h2>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+  <script>
+    const channelId = "66ba9f2c1234567890abcd12";
+    const socket = io("http://localhost:3000");
+
+    socket.on("connect", () => {
+      console.log("✅ Connected:", socket.id);
+      socket.emit("joinChannel", channelId);
+      console.log("✅ Joined channel:", channelId);
+    });
+
+    socket.on("newMessage", (msg) => {
+      console.log("📩 Realtime newMessage:", msg);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("❌ Disconnected");
+    });
+  </script>
+</body>
+</html>

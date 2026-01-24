@@ -14,10 +14,5 @@ router.patch("/status",auth,updatestatus);
 router.post("/channels",auth,createChannel);
 router.post("/channels/:id/messages",auth,sendMessage);
 router.get("/channels/:id/messages",auth,getmessage);
-router.post(
-  "/channels/:id/messages",
-  auth,
-  sendMessage
-);
 
 module.exports= router

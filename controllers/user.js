@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const mongoose = require("mongoose");
 const User = require('../models/auth');
 const Message = require("../models/message");
 const Refreshtoken = require('../models/refreshtoken');
@@ -183,17 +184,6 @@ async function createChannel(req, res) {
 
 
 
-async function sendMessage(req, res) {
-  const message = await Message.create({
-    content: req.body.content,
-    channelId: req.params.id,
-    senderId: req.user.id
-  });
-
-  res.json(message);
-}
-const mongoose = require("mongoose");
-
 async function getmessage(req, res) {
   try {
     const channelId = new mongoose.Types.ObjectId(req.params.id);
@@ -242,33 +232,39 @@ async function getmessage(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
-const Message = require("../models/message");
 
 async function sendMessage(req, res) {
   try {
     const { content } = req.body;
     const channelId = req.params.id;
-    const userId = req.user.id; // from auth middleware
-
+    const userId = req.user.id; 
+    console.log("✅ sendMessage API hit");
+    console.log("channelId:", channelId);
+    console.log("req.io exists?", !!req.io);
     if (!content) {
       return res.status(400).json({ error: "Message content is required" });
     }
 
-    // save message
+    
     const message = await Message.create({
       content,
       channelId,
       senderId: userId
     });
-    req.io.to(channelId).emit("newMessage", message);
+    // req.io.to(channelId).emit("newMessage", message);
+    if (req.io) {
+      req.io.to(channelId).emit("newMessage", message);
+    }
 
     res.status(201).json(message);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+  req.io.to(String(channelId)).emit("newMessage", message);
+console.log("✅ emitted newMessage");
+
 }
 
-module.exports = { sendMessage };
 
 
 
