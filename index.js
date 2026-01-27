@@ -14,14 +14,19 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use("/auth",authRoutes);
-app.use('/users',userRoutes);
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "*"
   }
 });
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
+app.use("/auth",authRoutes);
+app.use('/users',userRoutes);
 
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
@@ -35,10 +40,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use((req, res, next) => {
-  req.io = io;
-  next();
-});
+
 
 const PORT = process.env.PORT || 3000;
 connectmongoDB(process.env.MONGO_URI);

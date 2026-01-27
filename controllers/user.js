@@ -237,35 +237,25 @@ async function sendMessage(req, res) {
   try {
     const { content } = req.body;
     const channelId = req.params.id;
-    const userId = req.user.id; 
-    console.log("✅ sendMessage API hit");
-    console.log("channelId:", channelId);
-    console.log("req.io exists?", !!req.io);
+    const userId = req.user.id;
+
     if (!content) {
       return res.status(400).json({ error: "Message content is required" });
     }
 
-    
     const message = await Message.create({
       content,
       channelId,
       senderId: userId
     });
-    // req.io.to(channelId).emit("newMessage", message);
     if (req.io) {
       req.io.to(channelId).emit("newMessage", message);
     }
-
-    res.status(201).json(message);
+   return res.status(201).json(message);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
-  req.io.to(String(channelId)).emit("newMessage", message);
-console.log("✅ emitted newMessage");
-
 }
-
-
 
 
 
