@@ -257,7 +257,42 @@ async function sendMessage(req, res) {
     return res.status(500).json({ error: err.message });
   }
 }
+async function createServer(req,res){
+  try{
+    const {name,icon}=req.body;
+    if(!name){
+      return res.status(400).json({ error: "name is required" });
+    }
+    const userId = req.user.id;
+    const invitecode = crypto.randomBytes(6).toString('hex');
+    const server = await Server.create({
+      name,
+      icon: icon|| "",
+      ownerId:userId,
+      members:[userId],
+      invitecode
+
+    });
+    const channel = await Channel.create({
+      name: "general",
+      type: "text",
+      serverId: server._id,
+      createdBy: userId
+    });
+        server.channels.push(channel._id);
+    await server.save();
+
+    res.status(201).json({
+      message: "Server created successfully",
+      server,
+      defaultChannel: channel
+    });
+  }
+  catch(error){
+      res.status(500).json({ error: error.message });
+  
+  }
+}
 
 
-
-module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage};
+module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage,createServer};
