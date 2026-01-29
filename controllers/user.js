@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const User = require('../models/auth');
 const Message = require("../models/message");
 const Refreshtoken = require('../models/refreshtoken');
+const Server = require("../models/server");
 const Channel =require('../models/channels');
 const jwt = require('jsonwebtoken');
 async function signup(req,res){
@@ -240,7 +241,7 @@ async function sendMessage(req, res) {
     const userId = req.user.id;
 
     if (!content) {
-      return res.status(400).json({ error: "Message content is required" });
+      return res.status(400).json({ error: "Message required" });
     }
 
     const message = await Message.create({
@@ -249,7 +250,7 @@ async function sendMessage(req, res) {
       senderId: userId
     });
     if (req.io) {
-      req.io.to(channelId).emit("newMessage", message);
+      req.io.to(channelId).emit("newMsg", message);
     }
    return res.status(201).json(message);
   } catch (err) {
