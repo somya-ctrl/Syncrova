@@ -293,6 +293,37 @@ async function createServer(req,res){
   
   }
 }
+async function getserver(req,res){
+  try{
+    const userId = req.users.id;
+    const servers = await Server.aggregate([
+      { $match: { members:new mongoose.Types.ObjectId(userId)}},
+      {
+        $addFields:{
+          memberCount:{ $size:"$members"},
+          channelCount:{$size:"$channels"}
+        }
+      },
+      {
+        $project:{
+          name:1,
+          icon:1,
+          ownerId:1,
+          invitecode:1,
+          memberCount:1,
+          channelCount:1,
+          createdAt:1
+        }
+      },
+      {$sort:{createdAt:-1}}
+      
+    ]);
+    res.status(200).json(servers);
+  }
+  catch(error){
+       res.status(500).json({error:error.message});
+  }
+}
 
 
-module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage,createServer};
+module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage,createServer,getserver};
