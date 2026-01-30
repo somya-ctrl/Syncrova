@@ -295,7 +295,7 @@ async function createServer(req,res){
 }
 async function getserver(req,res){
   try{
-    const userId = req.users.id;
+    const userId = req.user.id;
     const servers = await Server.aggregate([
       { $match: { members:new mongoose.Types.ObjectId(userId)}},
       {
@@ -324,6 +324,49 @@ async function getserver(req,res){
        res.status(500).json({error:error.message});
   }
 }
+async function getserverbyid(req,res){
+  try{
+    const serverId = new mongoose.Types.ObjectId(req.params.id);
+    const userId = new mongoose.Types.ObjectId(req.user.id);
+    const result = await Server.aggregate([
+      {$match:{_id:serverId,members:userId}},
+      {
+        $lookup:{
+          from:"users",
+          localField:"ownerId",
+          foreignField:"_id",
+          as:"owner"
+        }
+      },
+      {$unwind:"$owner"},
+      {
+        $addFields: {
+          membersCount: { $size: "$members" },
+          channelsCount: { $size: "$channels" }
+        }
+      },
+      {
+        $project: {
+          name: 1,
+          icon: 1,
+          inviteCode: 1,
+          createdAt: 1,
 
+          "owner._id": 1,
+          "owner.username": 1,
+          "owner.avatar": 1,
 
-module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage,createServer,getserver};
+          membersCount: 1,
+          channelsCount: 1
+        }
+      }
+    ]);
+    if (!result.length) { return res.status(404).json({ error: "Server not found or access denied" });
+    res.status(200).json(result[0]);
+  }}
+  catch(error){
+    res.status(500).json({error:error.message});
+  }
+}
+
+module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage,createServer,getserver,getserverbyid};
