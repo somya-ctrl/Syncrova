@@ -2,7 +2,8 @@ const express= require('express');
 const router = express.Router();
 const auth = require("../middlewares/authmiddlewares");
 
-const { signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage,createServer,getserver,getserverbyid} = require('../controllers/user');
+const { signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage,
+    createServer,getserver,getserverbyid,createchannelinserver} = require('../controllers/user');
 router.post('/signup',signup);
 router.post('/login',login);
 router.post('/refresh',refresh);
@@ -18,5 +19,6 @@ router.get("/channels/:id/messages",auth,getmessage);
 router.post("/servers",auth,createServer);
 router.get("/getservers",auth,getserver);
 router.get("/servers/:id",auth,getserverbyid);
+router.post("/servers/:id/channels",auth,createchannelinserver);
 
 module.exports= router
