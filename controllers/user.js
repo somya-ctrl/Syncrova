@@ -361,9 +361,9 @@ async function getserverbyid(req,res){
         }
       }
     ]);
-    if (!result.length) { return res.status(404).json({ error: "Server not found or access denied" });
-    res.status(200).json(result[0]);
-  }}
+    if (!result.length) { return res.status(404).json({ error: "Server not found or access denied" });}
+    res.status(200).json(result[0]);}
+     
   catch(error){
     res.status(500).json({error:error.message});
   }
