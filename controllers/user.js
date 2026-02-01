@@ -401,6 +401,19 @@ async function createchannelinserver(req,res){
     res.status(500).json({ error: error.message });
   }
 }
+async function getchannelinserver(req,res){
+  try{
+    const serverId = req.params.id;
+      if (!mongoose.Types.ObjectId.isValid(serverId)) {
+      return res.status(400).json({ error: "Invalid serverId" });
+    }
+    const channels = await Channel.find({serverId});
+    res.status(200).json(channels);
+  }
+  catch(error){
+    res.status(500).json({error:error.message});
+  }
+}
 
 module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,
-  getmessage,createServer,getserver,getserverbyid,createchannelinserver};
+  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver};
