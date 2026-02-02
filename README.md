@@ -1,1 +1,1 @@
-# discord
+# discord clone - real-time chat application
