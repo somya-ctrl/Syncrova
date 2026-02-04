@@ -419,7 +419,7 @@ async function getchannelinserver(req,res){
 async function joinServer(req, res) {
   try {
     const serverId = req.params.id;
-    const userId = req.user.id; // coming from auth middleware
+    const userId = req.user.id; 
 
     const server = await Server.findById(serverId);
 
@@ -427,12 +427,9 @@ async function joinServer(req, res) {
       return res.status(404).json({ error: "Server not found" });
     }
 
-    // ✅ already a member check
     if (server.members.includes(userId)) {
       return res.status(400).json({ error: "User already joined this server" });
     }
-
-    // ✅ add member
     server.members.push(userId);
     await server.save();
 
@@ -446,8 +443,8 @@ async function joinServer(req, res) {
   }
 }
 
-module.exports = { joinServer };
+
 
 
 module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,
-  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver};
+  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver,joinServer};

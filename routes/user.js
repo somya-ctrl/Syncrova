@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require("../middlewares/authmiddlewares");
 
 const { signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,getmessage,
-    createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver} = require('../controllers/user');
+    createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver,joinServer} = require('../controllers/user');
 router.post('/signup',signup);
 router.post('/login',login);
 router.post('/refresh',refresh);
@@ -22,5 +22,7 @@ router.get("/getservers",auth,getserver);
 router.get("/servers/:id",auth,getserverbyid);
 router.post("/servers/:id/channels",auth,createchannelinserver);
 router.get("/servers/:id/getchannels",auth,getchannelinserver);
+
+router.post("/joinserver",auth,joinServer);
 
 module.exports= router
