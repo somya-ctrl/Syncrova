@@ -443,6 +443,36 @@ async function joinServer(req, res) {
     return res.status(500).json({ error: "Internal server error" });
   }
 }
+async function leaveServer(req,res){
+  try{
+    const serverId = req.params.id;
+    const userId = req.user.id;
+    const server = await Server.findById(serverId);
+
+    if(!server){
+      return res.status(400).json({error : "Server not found"});
+    }
+    if (!server.members.includes(userId)) {
+      return res.status(400).json({ error: "you are not member of the server" });
+    }
+    if (server.ownerId.toString() === userId) {
+      return res.status(400).json({ error: "Server owner cannot leave the server" });
+    }
+    server.members = server.members.filter(
+      (member) => member.toString() !== userId
+    );
+
+    await server.save();
+
+    return res.status(200).json({
+      message: "Left server successfully"
+    });
+
+  } catch (error) {
+    console.log("leaveServer error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
 
 
 
@@ -450,4 +480,4 @@ async function joinServer(req, res) {
 
 
 module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,
-  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver,joinServer};
+  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver,joinServer,leaveServer};
