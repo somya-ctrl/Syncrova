@@ -31,7 +31,8 @@ const serverSchema = new mongoose.Schema(
 
    inviteCode: {
      type: String,
-     unique: true
+     unique: true,
+     sparse: true
     }
 
 

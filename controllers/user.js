@@ -49,7 +49,8 @@ async function signup(req,res){
             }
             const isMatch = await bcrypt.compare(password,user.password);
             if(!isMatch){
-                res.status(401).json({error:"Invalid Credentials"});            }
+                res.status(401).json({error:"Invalid Credentials"});        
+              }
            const accesstoken = jwt.sign(
             {id :user._id,email:user.email},
             process.env.JWT_SECRET,
@@ -270,7 +271,7 @@ async function createServer(req,res){
       icon: icon|| "",
       ownerId:userId,
       members:[userId],
-      invitecode
+      inviteCode:invitecode
 
     });
     const channel = await Channel.create({
@@ -442,6 +443,8 @@ async function joinServer(req, res) {
     return res.status(500).json({ error: "Internal server error" });
   }
 }
+
+
 
 
 

@@ -23,6 +23,6 @@ router.get("/servers/:id",auth,getserverbyid);
 router.post("/servers/:id/channels",auth,createchannelinserver);
 router.get("/servers/:id/getchannels",auth,getchannelinserver);
 
-router.post("/joinserver",auth,joinServer);
+router.post("/servers/:id/join",auth,joinServer);
 
 module.exports= router
