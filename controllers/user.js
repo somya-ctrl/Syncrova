@@ -474,10 +474,51 @@ async function leaveServer(req,res){
   }
 }
 
+async function deleteChannel(req,res){
+  try{
+    const channelId = req.params.id;
+    const userId = req.user.id;
+    const channel = await Channel.findById(channelId);
+    if(!channel){
+      return res.status(400).json({error : "Channel not found"});
+    }
+    
+    const serverId = channel.serverId;
+    const server = await Server.findById(serverId);
+    if(!server){
+      return res.status(400).json({error : "server not found"});
+    }
+    if(server.ownerId.toString() !== userId){
+    return res.status(403).json({error:"Only server owner can delete channel"});
+    }
+    
+   await Channel.findByIdAndDelete(channelId);
+
+
+   server.channels = server.channels.filter(
+  (id) => id.toString() !== channelId
+);
+
+
+await server.save();
+
+
+
+return res.status(200).json({
+  message: "Channel deleted successfully"
+});
+
+
+
+  }
+  catch(error){
+      return res.status(500).json({error:"internal server error"});
+  }
+}
 
 
 
 
 
 module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,
-  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver,joinServer,leaveServer};
+  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver,joinServer,leaveServer,deleteChannel};
