@@ -507,10 +507,6 @@ async function deleteChannel(req,res){
       return res.status(500).json({error:"internal server error"});
   }
 }
-
-
-
-
 async function editmessage(req,res){
   try{
       const messageId = req.params.id;
