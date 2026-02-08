@@ -498,19 +498,11 @@ async function deleteChannel(req,res){
    server.channels = server.channels.filter(
   (id) => id.toString() !== channelId
 );
-
-
-await server.save();
-
-
-
-return res.status(200).json({
+   await server.save();
+  return res.status(200).json({
   message: "Channel deleted successfully"
 });
-
-
-
-  }
+ }
   catch(error){
       return res.status(500).json({error:"internal server error"});
   }
@@ -519,6 +511,44 @@ return res.status(200).json({
 
 
 
+async function editmessage(req,res){
+  try{
+      const messageId = req.params.id;
+     const {content} = req.body;
+     const userId = req.user.id;
+     const message = await Message.findById(messageId);
+     if(!message){
+      return res.status(404).json({error:"message not found"});
+     }
+     const channelId = message.channelId;
+     const channel = await Channel.findById(channelId);
+     const serverId = channel.serverId;
+     const server = await Server.findById(serverId);
+     if(!channel){
+      return res.staus(404).json({error:"channel not found"});
+     }
+     if(!server){
+      return res.status(404).json({error:"server not found"});
+     }
+      if(
+       message.sender.toString() !== userId &&
+       server.ownerId.toString() !== userId
+      ){
+      return res.status(403).json({error:"Not allowed to edit this message"});
+      }
+     message.content = content;
+     await message.save();
+     
+     return res.status(200).json({
+      message: "Message updated successfully",
+      updatedMessage: message
+     });
+  }
+     
+   catch(error){
+    return res.status(500).json({error:"internal server error"});
+   } 
 
+}
 module.exports = {signup,login,refresh,logout,getuser,updateuser,updatestatus,sendMessage,createChannel,
-  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver,joinServer,leaveServer,deleteChannel};
+  getmessage,createServer,getserver,getserverbyid,createchannelinserver,getchannelinserver,joinServer,leaveServer,deleteChannel,editmessage};
