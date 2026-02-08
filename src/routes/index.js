@@ -4,7 +4,7 @@ const router = express.Router();
 const authRoutes = require('./auth.routes');
 const userRoutes = require('./user.routes');
 const serverRoutes = require('./server.routes');
-const channelRoutes = require('./channel.routes');
+const channelRoutes = require('./channels.routes');
 const messageRoutes = require('./message.routes');
 
 router.use('/auth', authRoutes);
