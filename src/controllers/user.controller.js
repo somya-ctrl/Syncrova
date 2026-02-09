@@ -1,4 +1,4 @@
-const User = require('../models/auth');
+const User = require('../models/auth.model');
 
 async  function getuser (req, res) {
   try {

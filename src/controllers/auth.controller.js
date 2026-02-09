@@ -2,41 +2,21 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-const User = require('../models/auth');
-const Refreshtoken = require('../models/refreshtoken');
-async function signup(req,res){
-   try{
-         const user = new User(req.body);
-         const saltrounds = 10;
-         const hashedpassword = await bcrypt.hash(user.password,saltrounds);
-         user.password = hashedpassword;
-         const accesstoken = jwt.sign(
-            {id:user._id,
-            email:user.email
-            },process.env.JWT_SECRET,
-            {
-            expiresIn:process.env.ACCESS_TOKEN_EXPIRES_IN || '15m'
-            }
-         );
-         const refreshtoken = crypto.randomBytes(54).toString("hex");
-         await Refreshtoken.create({
-            user:user._id,
-            token:refreshtoken,
-            expiresAt: new Date(Date.now() + 7*24*60*60*1000),
+const User = require('../models/auth.model');
+const Refreshtoken = require('../models/refreshtoken.model');
+const authService = require('../services/auth.service');
 
-         });
-         await user.save();
-         res.status(201).json({
-            message:"signup successfull",
-            accesstoken,
-            refreshtoken,
-            user
-         });
-    }
-    catch(error){
-        res.status(400).json({error:error.message});
-    }
-}  
+async function signup(req, res) {
+  try {
+
+    const result = await authService.signupService(req.body);
+
+    res.status(201).json(result);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
     async function login(req,res){
         try{
             const{email,password } = req.body;

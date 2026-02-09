@@ -1,5 +1,5 @@
-const Server = require('../models/server');
-const Channel = require('../models/channels');
+const Server = require('../models/server.model');
+const Channel = require('../models/channels.model');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 

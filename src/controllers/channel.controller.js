@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Channel = require('../models/channels');
-const Server = require('../models/server');
+const Channel = require('../models/channels.model');
+const Server = require('../models/server.model');
 
 async function createChannel(req, res) {
   try {

@@ -1,6 +1,6 @@
-const Message = require('../models/message');
-const Channel = require('../models/channels');
-const Server = require('../models/server');
+const Message = require('../models/message.model');
+const Channel = require('../models/channels.model');
+const Server = require('../models/server.model');
 const mongoose = require('mongoose');
 async function sendMessage(req, res) {
   try {
