@@ -80,18 +80,14 @@ const refreshService = async (refreshtoken) => {
   if (!refreshtoken) {
     throw new Error("refreshtoken is required");
   }
-
   const tokenDoc = await authRepo.findRefreshToken(refreshtoken);
-
   if (!tokenDoc) {
     throw new Error("invalid refreshtoken");
   }
-
   if (tokenDoc.expiresAt < new Date()) {
     await authRepo.deleteRefreshToken(tokenDoc);
     throw new Error("Refresh token expired");
   }
-
   const accesstoken = jwt.sign(
     { id: tokenDoc.user },
     process.env.JWT_SECRET,
@@ -100,6 +96,14 @@ const refreshService = async (refreshtoken) => {
 
   return { accesstoken };
 };
+const logoutService = async (userId, refreshToken) => {
 
-module.exports = { signupService, loginService, refreshService };
+  if (!refreshToken) {
+    throw new Error("refreshToken is required");
+  }
+  await authRepo.deleteUserRefreshToken(userId, refreshToken);
+  return { message: "Logged out successfully" };
+};
+
+module.exports = { signupService, loginService, refreshService ,logoutService};
 

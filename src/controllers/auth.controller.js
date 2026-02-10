@@ -60,11 +60,20 @@ async function refresh(req, res) {
 }
 async function logout(req, res) {
   try {
+
     const { refreshToken } = req.body;
-    await Refreshtoken.deleteOne({ token: refreshToken });
-    res.json({ message: "Logged out successfully" });
+    const userId = req.user.id; 
+    const result = await authService.logoutService(userId, refreshToken);
+    res.status(200).json(result);
+
   } catch (error) {
+
+    if (error.message === "refreshToken is required") {
+      return res.status(400).json({ error: error.message });
+    }
+
     res.status(500).json({ error: error.message });
   }
 }
+
 module.exports = { signup, login, refresh, logout };

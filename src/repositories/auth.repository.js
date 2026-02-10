@@ -16,11 +16,19 @@ const findRefreshToken = async (token) => {
 const deleteRefreshToken = async (tokenDoc) => {
   return await tokenDoc.deleteOne();
 };
+const deleteUserRefreshToken = async (userId, token) => {
+  return await Refreshtoken.deleteOne({
+    user: userId,
+    token: token
+  });
+};
+
 
 module.exports = {
   createUser,
   saveRefreshToken,
   findUserByEmail,
   findRefreshToken,
-  deleteRefreshToken
+  deleteRefreshToken,
+  deleteUserRefreshToken
 };
