@@ -10,67 +10,51 @@ async function signup(req, res) {
   try {
 
     const result = await authService.signupService(req.body);
-
     res.status(201).json(result);
-
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 }
-    async function login(req,res){
-        try{
-            const{email,password } = req.body;
-            const user = await User.findOne({email});
-            if(!user){
-                return res.status(404).json({error:"user not found"});
-            }
-            const isMatch = await bcrypt.compare(password,user.password);
-            if(!isMatch){
-                res.status(401).json({error:"Invalid Credentials"});        
-              }
-           const accesstoken = jwt.sign(
-            {id :user._id,email:user.email},
-            process.env.JWT_SECRET,
-            {expiresIn : process.env.ACCESS_TOKEN_EXPIRES_IN||"15m"}
-           );
-           const refreshtoken = crypto.randomBytes(54).toString("hex");
-           await Refreshtoken.create({
-            user:user._id,
-        token:refreshtoken,
-    expiresAt: new Date(Date.now()+ 7*24*60*60*1000),
-           });
-           res.status(200).json({
-            message:"login successfull",
-            accesstoken,
-            refreshtoken,
-            user:{id :user._id,name:user.username,email:user.email},
-           });
-    }
-    catch(error){
-        res.status(500).json({error:error.message});
-    }
-}
-async function refresh(req,res){
-    try{
-        const {refreshtoken} = req.body;
-        if(!refreshtoken)
-            return res.status(400).json({error:"refreshtoken is required"});
-        const tokenDoc = await Refreshtoken.findOne({token:refreshtoken});
-        if(!tokenDoc)
-            return res.status(403).json({error:"invalid refreshtoken"});
-        
-        if (tokenDoc.expiresAt < new Date()) {
-        await tokenDoc.deleteOne();
-        return res.status(403).json({ error: "Refresh token expired" });
-        }
 
-        const accesstoken = jwt.sign(
-            {id:tokenDoc.user},
-            process.env.JWT_SECRET,
-            {expiresIn:process.env.ACCESS_TOKEN_EXPIRES_IN || "15m"}
-        );
-        res.status(200).json({accesstoken});
-    }catch (error) {
+async function login(req, res) {
+  try {
+
+    const { email, password } = req.body;
+    const result = await authService.loginService(email, password);
+    res.status(200).json(result);
+
+  } catch (error) {
+
+    if (error.message === "user not found") {
+      return res.status(404).json({ error: error.message });
+    }
+
+    if (error.message === "Invalid Credentials") {
+      return res.status(401).json({ error: error.message });
+    }
+
+    res.status(500).json({ error: error.message });
+  }
+}
+async function refresh(req, res) {
+  try {
+
+    const { refreshtoken } = req.body;
+
+    const result = await authService.refreshService(refreshtoken);
+
+    res.status(200).json(result);
+
+  } catch (error) {
+    if (error.message === "refreshtoken is required") {
+      return res.status(400).json({ error: error.message });
+    }
+    if (error.message === "invalid refreshtoken") {
+      return res.status(403).json({ error: error.message });
+    }
+    if (error.message === "Refresh token expired") {
+      return res.status(403).json({ error: error.message });
+    }
     res.status(500).json({ error: error.message });
   }
 }

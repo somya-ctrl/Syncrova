@@ -6,8 +6,21 @@ const createUser = async(data)  =>{
 const saveRefreshToken = async (data) => {
   return await Refreshtoken.create(data);
 };
+const findUserByEmail = async (email) => {
+  return await User.findOne({ email });
+};
+const findRefreshToken = async (token) => {
+  return await Refreshtoken.findOne({ token });
+};
+
+const deleteRefreshToken = async (tokenDoc) => {
+  return await tokenDoc.deleteOne();
+};
 
 module.exports = {
   createUser,
-  saveRefreshToken
+  saveRefreshToken,
+  findUserByEmail,
+  findRefreshToken,
+  deleteRefreshToken
 };
