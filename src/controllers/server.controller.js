@@ -1,178 +1,66 @@
-const Server = require('../models/server.model');
-const Channel = require('../models/channels.model');
-const mongoose = require('mongoose');
-const crypto = require('crypto');
+const serverService = require('../services/server.service');
 
-async function createServer(req,res){
-  try{
-    const {name,icon}=req.body;
-    if(!name){
-      return res.status(400).json({ error: "name is required" });
-    }
+const createServer = async (req, res) => {
+  try {
+    const { name, icon } = req.body;
     const userId = req.user.id;
-    const invitecode = crypto.randomBytes(6).toString('hex');
-    const server = await Server.create({
-      name,
-      icon: icon|| "",
-      ownerId:userId,
-      members:[userId],
-      inviteCode:invitecode
 
-    });
-    const channel = await Channel.create({
-      name: "general",
-      type: "text",
-      serverId: server._id,
-      createdBy: userId
-    });
-        server.channels.push(channel._id);
-    await server.save();
+    const result = await serverService.createServerService(userId, name, icon);
+    res.status(201).json(result);
 
-    res.status(201).json({
-      message: "Server created successfully",
-      server,
-      defaultChannel: channel
-    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-  catch(error){
-      res.status(500).json({ error: error.message });
-  
-  }
-}
-async function getserver(req,res){
-  try{
+};
+
+const getserver = async (req, res) => {
+  try {
     const userId = req.user.id;
-    const servers = await Server.aggregate([
-      { $match: { members:new mongoose.Types.ObjectId(userId)}},
-      {
-        $addFields:{
-          memberCount:{ $size:"$members"},
-          channelCount:{$size:"$channels"}
-        }
-      },
-      {
-        $project:{
-          name:1,
-          icon:1,
-          ownerId:1,
-          invitecode:1,
-          memberCount:1,
-          channelCount:1,
-          createdAt:1
-        }
-      },
-      {$sort:{createdAt:-1}}
-      
-    ]);
+    const servers = await serverService.getServersService(userId);
     res.status(200).json(servers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-  catch(error){
-       res.status(500).json({error:error.message});
+};
+
+const joinServer = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const serverId = req.params.id;
+
+    const result = await serverService.joinServerService(userId, serverId);
+    res.status(200).json(result);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-}
-async function getserverbyid(req,res){
-  try{
-    const serverId = new mongoose.Types.ObjectId(req.params.id);
-    const userId = new mongoose.Types.ObjectId(req.user.id);
-    const result = await Server.aggregate([
-      {$match:{_id:serverId,members:userId}},
-      {
-        $lookup:{
-          from:"users",
-          localField:"ownerId",
-          foreignField:"_id",
-          as:"owner"
-        }
-      },
-      {$unwind:"$owner"},
-      {
-        $addFields: {
-          membersCount: { $size: "$members" },
-          channelsCount: { $size: "$channels" }
-        }
-      },
-      {
-        $project: {
-          name: 1,
-          icon: 1,
-          inviteCode: 1,
-          createdAt: 1,
+};
 
-          "owner._id": 1,
-          "owner.username": 1,
-          "owner.avatar": 1,
+const leaveServer = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const serverId = req.params.id;
 
-          membersCount: 1,
-          channelsCount: 1
-        }
-      }
-    ]);
-    if (!result.length) { return res.status(404).json({ error: "Server not found or access denied" });}
-    res.status(200).json(result[0]);}
-     
-  catch(error){
-    res.status(500).json({error:error.message});
+    const result = await serverService.leaveServerService(userId, serverId);
+    res.status(200).json(result);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-}
-
-async function joinServer(req, res) {
+};
+const getserverbyid = async (req, res) => {
   try {
     const serverId = req.params.id;
-    const userId = req.user.id; 
-
-    const server = await Server.findById(serverId);
-
-    if (!server) {
-      return res.status(404).json({ error: "Server not found" });
-    }
-
-    if (server.members.includes(userId)) {
-      return res.status(400).json({ error: "User already joined this server" });
-    }
-    server.members.push(userId);
-    await server.save();
-
-    return res.status(200).json({
-      message: "Joined server successfully",
-      server,
-    });
-  } catch (error) {
-    console.log("joinServer error:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-}
-async function leaveServer(req,res){
-  try{
-    const serverId = req.params.id;
     const userId = req.user.id;
-    const server = await Server.findById(serverId);
 
-    if(!server){
-      return res.status(400).json({error : "Server not found"});
-    }
-    if (!server.members.includes(userId)) {
-      return res.status(400).json({ error: "you are not member of the server" });
-    }
-    if (server.ownerId.toString() === userId) {
-      return res.status(400).json({ error: "Server owner cannot leave the server" });
-    }
-    server.members = server.members.filter(
-      (member) => member.toString() !== userId
-    );
+    const result = await serverService.getServerByIdService(userId, serverId);
 
-    await server.save();
-
-    return res.status(200).json({
-      message: "Left server successfully"
-    });
+    res.status(200).json(result);
 
   } catch (error) {
-    console.log("leaveServer error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(400).json({ error: error.message });
   }
-}
-
-
+};
 
 module.exports = {
   createServer,
