@@ -1,6 +1,6 @@
 const Channel = require('../models/channels.model');
 const Server = require('../models/server.model');
-
+const mongoose = require("mongoose");
 
 const createChannel = async (data) => {
   return await Channel.create(data);
@@ -9,7 +9,7 @@ const findServerById = async(serverId) =>{
     return await Server.findById(serverId);
 }
 const findChannelsByServerId = async (serverId) => {
-  return await Channel.find({ serverId });
+  return await Channel.find({ serverId: new mongoose.Types.ObjectId(serverId) });
 };
 
 const findChannelById = async (channelId) => {
