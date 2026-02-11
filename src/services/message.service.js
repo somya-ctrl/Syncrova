@@ -1,7 +1,16 @@
 const messageRepo = require('../repositories/message.repository');
 
 const sendMessageService = async (userId, channelId, content, io) => {
+  const channel = await messageRepo.findChannelById(channelId);
 
+  if (!channel) {
+    throw new Error("channel not found");
+  }
+  const server = await messageRepo.findServerById(channel.serverId);
+
+  if (!server) {
+    throw new Error("server not found");
+  }
   if (!content) {
     throw new Error("Message required");
   }
@@ -34,21 +43,21 @@ const getMessagesService = async (channelId, page, limit) => {
 };
 
 const editMessageService = async (userId, messageId, content) => {
-
-  const message = await messageRepo.findMessageById(messageId);
-
-  if (!message) {
+ const message = await messageRepo.findMessageById(messageId);
+ if (!message) {
     throw new Error("message not found");
   }
-
-  const channel = await messageRepo.findChannelById(message.channelId);
-  const server = await messageRepo.findServerById(channel.serverId);
-
-  if (!channel) throw new Error("channel not found");
-  if (!server) throw new Error("server not found");
+ const channel = await messageRepo.findChannelById(message.channelId);
+ if (!channel) {
+    throw new Error("channel not found");
+  }
+ const server = await messageRepo.findServerById(channel.serverId);
+ if (!server) {
+    throw new Error("server not found");
+  }
 
   if (
-    message.senderId.toString() !== userId &&
+     message.senderId.toString() !== userId &&
     server.ownerId.toString() !== userId
   ) {
     throw new Error("Not allowed to edit this message");
@@ -62,6 +71,7 @@ const editMessageService = async (userId, messageId, content) => {
     updatedMessage: message
   };
 };
+
 
 module.exports = {
   sendMessageService,

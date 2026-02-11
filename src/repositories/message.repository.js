@@ -12,9 +12,12 @@ const findMessageById = async (messageId) => {
 const findChannelById = async (channelId) => {
   return await Channel.findById(channelId);
 };
+
+
 const findServerById = async (serverId) => {
-  return await Server.findById(serverId);
+  return await Server.findById(new mongoose.Types.ObjectId(serverId));
 };
+
 const saveMessage = async (message) => {
   return await message.save();
 };

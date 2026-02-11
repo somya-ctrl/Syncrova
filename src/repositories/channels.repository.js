@@ -5,9 +5,11 @@ const mongoose = require("mongoose");
 const createChannel = async (data) => {
   return await Channel.create(data);
 };
-const findServerById = async(serverId) =>{
-    return await Server.findById(serverId);
-}
+
+const findServerById = async (serverId) => {
+  return await Server.findById(new mongoose.Types.ObjectId(serverId));
+};
+
 const findChannelsByServerId = async (serverId) => {
   return await Channel.find({ serverId: new mongoose.Types.ObjectId(serverId) });
 };
