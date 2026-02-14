@@ -1,60 +1,47 @@
-const User = require('../models/auth.model');
+const userService = require('../services/user.service');
 
-async  function getuser (req, res) {
+const getuser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id)
-      .select("-password");
+    const user = await userService.getUserService(req.user.id);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+};
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+const updateuser = async (req, res) => {
+  try {
+    const { username, avatar } = req.body;
+
+    const user = await userService.updateUserService(
+      req.user.id,
+      username,
+      avatar
+    );
 
     res.status(200).json(user);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 };
-async function updateuser(req,res){
-    try{
-      const updates = {};
-       if (req.body.username) updates.username = req.body.username;
-       if (req.body.avatar) updates.avatar = req.body.avatar;
-        const user = await User.findByIdAndUpdate(
-      req.user.id,
-      updates,
-      { new: true }
-    ).select("-password");
 
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message});
-  }
-    }
- async function updatestatus(req, res) {
+const updatestatus = async (req, res) => {
   try {
     const { status } = req.body;
 
-    const allowed = ["online", "offline", "busy", "dnd"];
-    if (!allowed.includes(status)) {
-      return res.status(400).json({ error: "Invalid status" });
-    }
-
-    const user = await User.findByIdAndUpdate(
+    const user = await userService.updateStatusService(
       req.user.id,
-      { status },
-      { new: true }
-    ).select("username status");
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+      status
+    );
 
     res.status(200).json(user);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
-}
+};
 
-
-
-module.exports = { getuser, updateuser, updatestatus };
+module.exports = {
+  getuser,
+  updateuser,
+  updatestatus
+};
