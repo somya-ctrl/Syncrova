@@ -42,15 +42,17 @@ const getMessagesService = async (channelId, page, limit) => {
   };
 };
 
-const editMessageService = async (userId, messageId, content) => {
- const message = await messageRepo.findMessageById(messageId);
+const editMessageService = async (userId, _id, content) => {
+ const message = await messageRepo.findMessageById(_id);
  if (!message) {
     throw new Error("message not found");
   }
+  console.log("error in fetc hing channelid");
  const channel = await messageRepo.findChannelById(message.channelId);
  if (!channel) {
     throw new Error("channel not found");
   }
+  
  const server = await messageRepo.findServerById(channel.serverId);
  if (!server) {
     throw new Error("server not found");
