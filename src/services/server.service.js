@@ -110,10 +110,29 @@ const getServerByIdService = async (userId, serverId) => {
   return server;
 };
 
+const deleteServerService = async (userId, serverId) => {
+
+  const server = await serverRepo.findServerByIdRepo(serverId);
+
+  if (!server) {
+    throw new Error("Server not found");
+  }
+  if (server.ownerId.toString() !== userId) {
+    throw new Error("Only server owner can delete the server");
+  }
+  await serverRepo.deleteMessagesByServerRepo(serverId);
+  await serverRepo.deleteChannelsByServerRepo(serverId);
+
+  await serverRepo.deleteServerByIdRepo(serverId);
+
+  return { message: "Server deleted successfully" };
+};
+
 module.exports = {
   createServerService,
   getServersService,
   getServerByIdService,
   joinServerService,
-  leaveServerService
+  leaveServerService,
+  deleteServerService
 };

@@ -61,11 +61,26 @@ const getserverbyid = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+const deleteServer = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const serverId = req.params.id;
+
+    const result = await serverService.deleteServerService(userId, serverId);
+
+    res.status(200).json(result);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 
 module.exports = {
   createServer,
   getserver,
   getserverbyid,
   joinServer,
-  leaveServer
+  leaveServer,
+  deleteServer
 };
