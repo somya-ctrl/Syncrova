@@ -61,5 +61,22 @@ async function editmessage(req, res) {
     res.status(400).json({ error: err.message });
   }
 }
+const deleteMessage = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const messageId = req.params.id;
 
-module.exports = { sendMessage, getmessage, editmessage };
+    const result = await messageService.deleteMessageService(
+      userId,
+      messageId,
+      req.io
+    );
+
+    res.status(200).json(result);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { sendMessage, getmessage, editmessage ,deleteMessage};

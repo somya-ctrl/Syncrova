@@ -53,6 +53,10 @@ const getMessagesAggregate = async (channelId, skip, limit) => {
     }
   ]);
 };
+const deleteMessageById = async (messageId) => {
+  return await Message.findByIdAndDelete(messageId);
+};
+
 
 module.exports = {
   createMessage,
@@ -60,5 +64,6 @@ module.exports = {
   findChannelById,
   findServerById,
   saveMessage,
-  getMessagesAggregate
+  getMessagesAggregate,
+  deleteMessageById
 };

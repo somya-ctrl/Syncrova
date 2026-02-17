@@ -47,7 +47,7 @@ const editMessageService = async (userId, _id, content) => {
  if (!message) {
     throw new Error("message not found");
   }
-  console.log("error in fetc hing channelid");
+ 
  const channel = await messageRepo.findChannelById(message.channelId);
  if (!channel) {
     throw new Error("channel not found");
@@ -74,9 +74,43 @@ const editMessageService = async (userId, _id, content) => {
   };
 };
 
+const deleteMessageService = async (userId, messageId, io) => {
+
+  const message = await messageRepo.findMessageById(messageId);
+  if (!message) {
+    throw new Error("message not found");
+  }
+
+  const channel = await messageRepo.findChannelById(message.channelId);
+  if (!channel) {
+    throw new Error("channel not found");
+  }
+
+  const server = await messageRepo.findServerById(channel.serverId);
+  if (!server) {
+    throw new Error("server not found");
+  }
+
+  if (
+    message.senderId.toString() !== userId &&
+    server.ownerId.toString() !== userId
+  ) {
+    throw new Error("Not allowed to delete this message");
+  }
+
+  await messageRepo.deleteMessageById(messageId);
+  if (io) {
+    io.to(channel._id.toString()).emit("messageDeleted", {
+      messageId
+    });
+  }
+
+  return { message: "Message deleted successfully" };
+};
 
 module.exports = {
   sendMessageService,
   getMessagesService,
-  editMessageService
+  editMessageService,
+  deleteMessageService
 };
