@@ -1,5 +1,5 @@
 
-# Real-Time Communication Platform (Backend)
+# Syncrova(Real-Time Communication Platform (Backend))
 
 A scalable backend for a real-time community and messaging platform built with Node.js, Express, MongoDB, and Socket.io.
 Supports authentication, servers, channels, messaging, and real-time events.
@@ -86,7 +86,7 @@ src/
 ```
 ## ⚙️ Installation
 
-git clone <repo-url>
+git clone <
 cd project
 npm install
 
