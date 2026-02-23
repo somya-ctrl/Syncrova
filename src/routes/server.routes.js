@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require("../middlewares/authmiddlewares");
-
+const validate = require("../middlewares/validate.middleware");
+const { createServerSchema } = require("../validations/server.validation");
 const {
   createServer,
   getserver,
@@ -11,7 +12,7 @@ const {
   deleteServer
 } = require('../controllers/server.controller');
 
-router.post("/", auth, createServer);
+router.post("/", auth,validate(createServerSchema), createServer);
 router.get("/", auth, getserver);
 router.get("/:id", auth, getserverbyid);
 

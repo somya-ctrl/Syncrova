@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require("../middlewares/authmiddlewares");
-
+const validate = require("../middlewares/validate.middleware");
+const { createChannelSchema } = require("../validations/channel.validation");
 const {
   createChannel,
   deleteChannel,
@@ -10,7 +11,7 @@ const {
 } = require('../controllers/channel.controller');
 
 
-router.post("/", auth, createChannel);
+router.post("/", auth,validate(createChannelSchema), createChannel);
 router.delete("/:id", auth, deleteChannel);
 
 router.post("/:id/channels", auth, createchannelinserver);
