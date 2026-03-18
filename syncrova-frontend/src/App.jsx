@@ -62,6 +62,39 @@ const App = () => {
           </div>
         </div>
       </section>
+      <h2 className="text-blue-700 text-2xl pt-4 pl-4">KEY FEATURES</h2>
+      <section>
+        <h2 className="text-slate-900 text-4xl lg:text-4xl font-bold pt-4 pl-4">Streamline Your Communication </h2>
+        <p className="text-slate-600 text-lg pt-4 pl-4">Everything you need to stay connected and organized in one place, built with speed and 
+          <span className="block"> security in mind.</span></p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 pl-4 pr-4 pb-4">
+
+  <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition border border-slate-200">
+    <h3 className="text-xl font-semibold mb-2">Real-time Messaging</h3>
+    <p className="text-slate-600">Instant delivery with sub-50ms latency.
+      <span className="block">Experience seamless conversations that </span>
+      <span className="block">flow naturally without delays.</span>
+    </p>
+  </div>
+
+  <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition">
+    <h3 className="text-xl font-semibold mb-2">Organized Channels</h3>
+    <p className="text-slate-600">Categorize conversations by project,
+      <span className="block">topic, or department. Keep your </span>
+      <span className="block">workspace clean and your focus sharp.</span>
+    </p>
+  </div>
+
+  <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition">
+    <h3 className="text-xl font-semibold mb-2">Personal Servers</h3>
+    <p className="text-slate-600">Create private spaces for your 
+      <span className="block">community.Full control over permissions,</span>
+      <span className="block">roles, and custom integrations.</span>
+    </p>
+  </div>
+
+</div>
+      </section>
     </>
   );
 };
