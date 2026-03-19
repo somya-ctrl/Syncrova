@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBolt, faTableCells, faServer } from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
   return (
@@ -70,6 +72,9 @@ const App = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 pl-4 pr-4 pb-4">
 
   <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition border border-slate-200">
+    <div className="bg-blue-100 w-12 h-12 flex items-center justify-center rounded-xl">
+  <FontAwesomeIcon icon={faBolt} className="text-blue-600 text-lg" />
+</div>
     <h3 className="text-xl font-semibold mb-2">Real-time Messaging</h3>
     <p className="text-slate-600">Instant delivery with sub-50ms latency.
       <span className="block">Experience seamless conversations that </span>
@@ -77,16 +82,22 @@ const App = () => {
     </p>
   </div>
 
-  <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition">
-    <h3 className="text-xl font-semibold mb-2">Organized Channels</h3>
+  <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition border border-slate-200">
+    <div className="bg-blue-100 w-12 h-12 flex items-center justify-center rounded-xl">
+  <FontAwesomeIcon icon={faTableCells} className="text-blue-600 text-lg" />
+</div>
+    <h3 className="text-xl font-semibold mb-2"> Organized Channels</h3>
     <p className="text-slate-600">Categorize conversations by project,
       <span className="block">topic, or department. Keep your </span>
       <span className="block">workspace clean and your focus sharp.</span>
     </p>
   </div>
 
-  <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition">
-    <h3 className="text-xl font-semibold mb-2">Personal Servers</h3>
+  <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition border border-slate-200">
+    <div className="bg-blue-100 w-12 h-12 flex items-center justify-center rounded-xl">
+  <FontAwesomeIcon icon={faServer} className="text-blue-600 text-lg" />
+</div>
+    <h3 className="text-xl font-semibold mb-2"> Personal Servers</h3>
     <p className="text-slate-600">Create private spaces for your 
       <span className="block">community.Full control over permissions,</span>
       <span className="block">roles, and custom integrations.</span>
