@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt, faTableCells, faServer } from "@fortawesome/free-solid-svg-icons";
 
+
 const App = () => {
   return (
     <>
@@ -63,7 +64,18 @@ const App = () => {
             </div>
           </div>
         </div>
+             
+  <div class="mt-16 lg:mt-24 relative pl-6 pr-6">
+<div class="absolute inset-0 bg-gradient-to-t from-background-light dark:from-background-dark via-transparent to-transparent z-10"></div>
+<div class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl bg-white dark:bg-slate-900 ">
+<img alt="App Interface Preview" class="w-full h-auto object-cover aspect-video" data-alt="UI dashboard mockup showing chat interface with sidebar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0DQ5XsPUd7_ZsF7aE6C_OcS9olc92ms9CNZ3Q0OaCbBY4v3EXKfpdEWpDplGd9hledFcjHcf1_RBLc62TiRs28SHqXjlpZNCy5lRqwI--aULsJFMqGY38-ZQBFdnExvDJ1wwtEhawYfJPsCZXnxb0XWQRQfSMXiObK2snj7s-9ZFN1cF0BXuWwZdSkHjBn2xHavn4fPQytXsWoBjRrvq0L_qqsyqvNwqa8gWZV4WskeoEY4TfzAD7V2YuDo1UvUTJJ3S0PbVj7F0u"/>
+</div>
+</div>
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10"></div>
+
       </section>
+  
+
       <h2 className="text-blue-700 text-2xl pt-4 pl-4">KEY FEATURES</h2>
       <section>
         <h2 className="text-slate-900 text-4xl lg:text-4xl font-bold pt-4 pl-4">Streamline Your Communication </h2>
