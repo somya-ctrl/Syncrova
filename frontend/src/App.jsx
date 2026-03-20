@@ -117,7 +117,51 @@ const App = () => {
   </div>
 
 </div>
+    
+
       </section>
+     <div className="bg-slate-200">
+      <h2 className="text-slate-900 text-4xl lg:text-4xl font-bold pt-16 pl-4">Experience the Modern Interface</h2>
+      <p className="text-slate-600 text-lg pt-4 pl-4">We've meticulously designed every pixel to ensure a distraction-free 
+        <span className="block">environment.From dark mode support to keyboard shortcuts.</span>
+        <span className="block">Syncrova is built for power users.</span>
+      </p>
+
+      
+    <div className="p-6">
+      <div className="space-y-4">
+        
+        <div className="flex items-start gap-3">
+          <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">
+            ✓
+          </div>
+          <p className="text-gray-700">
+            Fully customizable dark and light themes
+          </p>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">
+            ✓
+          </div>
+          <p className="text-gray-700">
+            Advanced search across all channels
+          </p>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">
+            ✓
+          </div>
+          <p className="text-gray-700">
+            Native file sharing and previewing
+          </p>
+        </div>
+
+      </div>
+    </div>
+   </div>  
+
     </>
   );
 };
