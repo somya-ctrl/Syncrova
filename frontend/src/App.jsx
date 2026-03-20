@@ -65,13 +65,13 @@ const App = () => {
           </div>
         </div>
              
-  <div class="mt-16 lg:mt-24 relative pl-6 pr-6">
-<div class="absolute inset-0 bg-gradient-to-t from-background-light dark:from-background-dark via-transparent to-transparent z-10"></div>
-<div class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl bg-white dark:bg-slate-900 ">
-<img alt="App Interface Preview" class="w-full h-auto object-cover aspect-video" data-alt="UI dashboard mockup showing chat interface with sidebar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0DQ5XsPUd7_ZsF7aE6C_OcS9olc92ms9CNZ3Q0OaCbBY4v3EXKfpdEWpDplGd9hledFcjHcf1_RBLc62TiRs28SHqXjlpZNCy5lRqwI--aULsJFMqGY38-ZQBFdnExvDJ1wwtEhawYfJPsCZXnxb0XWQRQfSMXiObK2snj7s-9ZFN1cF0BXuWwZdSkHjBn2xHavn4fPQytXsWoBjRrvq0L_qqsyqvNwqa8gWZV4WskeoEY4TfzAD7V2YuDo1UvUTJJ3S0PbVj7F0u"/>
+  <div className="mt-16 lg:mt-24 relative pl-6 pr-6">
+<div className="absolute inset-0 bg-gradient-to-t from-background-light dark:from-background-dark via-transparent to-transparent z-10"></div>
+<div className="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl bg-white dark:bg-slate-900 ">
+<img alt="App Interface Preview" className="w-full h-auto object-cover aspect-video" data-alt="UI dashboard mockup showing chat interface with sidebar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0DQ5XsPUd7_ZsF7aE6C_OcS9olc92ms9CNZ3Q0OaCbBY4v3EXKfpdEWpDplGd9hledFcjHcf1_RBLc62TiRs28SHqXjlpZNCy5lRqwI--aULsJFMqGY38-ZQBFdnExvDJ1wwtEhawYfJPsCZXnxb0XWQRQfSMXiObK2snj7s-9ZFN1cF0BXuWwZdSkHjBn2xHavn4fPQytXsWoBjRrvq0L_qqsyqvNwqa8gWZV4WskeoEY4TfzAD7V2YuDo1UvUTJJ3S0PbVj7F0u"/>
 </div>
 </div>
-<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10"></div>
+<div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10"></div>
 
       </section>
   
@@ -159,9 +159,38 @@ const App = () => {
         </div>
 
       </div>
-    </div>
-   </div>  
 
+      {/* CTA Card — properly centered */}
+      <div className="flex justify-center w-full mt-16">
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600
+                        rounded-3xl shadow-2xl
+                        px-12 py-14
+                        text-center text-white
+                        max-w-4xl w-full">
+
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to sync with your team?
+          </h1>
+
+          <p className="text-indigo-100 mb-8 max-w-2xl mx-auto">
+            Join over 10,000+ teams who have switched to Syncrova for better,
+            faster, and more organized communication.
+          </p>
+
+          <div className="flex justify-center gap-4 flex-wrap">
+            <button className="bg-white text-indigo-600 px-6 py-2 rounded-lg font-semibold hover:scale-105 transition">
+              Get Started Now
+            </button>
+            <button className="border border-white text-white px-6 py-2 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition">
+              Contact Sales
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
     </>
   );
 };
