@@ -191,6 +191,81 @@ const App = () => {
 
     </div>
   </div>
+  
+  
+    
+   
+ <footer className="border-t border-slate-200 px-8 pt-12 pb-6">
+        <div className="max-w-6xl mx-auto">
+ 
+          
+          <div className="flex justify-between items-start mb-10">
+ 
+            
+            <div className="max-w-xs">
+              {/* Logo */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                  ↔
+                </div>
+                <span className="text-slate-900 font-bold text-xl">Syncrova</span>
+              </div>
+              {/* Tagline */}
+              <p className="text-slate-500 text-sm leading-relaxed mb-6">
+                The next generation of team 
+                <span className="block">communication. Real-time, organized,</span> 
+                <span className="block">and secure.</span>
+              </p>
+              {/* Social icons */}
+              <div className="flex items-center gap-3">
+                <a href="#" className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-400 transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                  </svg>
+                </a>
+                <a href="#" className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-400 transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
+                  </svg>
+                </a>
+                <a href="#" className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-400 transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+ 
+            {/* Column 2 — Product links */}
+            <div>
+              <h4 className="text-slate-900 font-semibold text-sm tracking-widest uppercase mb-5">Product</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Features</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Integrations</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Pricing</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Changelog</a></li>
+              </ul>
+            </div>
+             
+              <div>
+              <h4 className="text-slate-900 font-semibold text-sm tracking-widest uppercase mb-5">company</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">About</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Careers</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Privacy</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Terms</a></li>
+              </ul>
+            </div>
+          </div>
+ 
+          {/* Bottom row — copyright */}
+          <div className="border-t border-slate-200 pt-5">
+            <p className="text-slate-400 text-xs">© 2024 Syncrova Inc. All rights reserved.</p>
+          </div>
+ 
+        </div>
+      </footer>
+
     </>
   );
 };
