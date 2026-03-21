@@ -203,20 +203,20 @@ const App = () => {
  
             
             <div className="max-w-xs">
-              {/* Logo */}
+              
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
                   ↔
                 </div>
                 <span className="text-slate-900 font-bold text-xl">Syncrova</span>
               </div>
-              {/* Tagline */}
+              
               <p className="text-slate-500 text-sm leading-relaxed mb-6">
                 The next generation of team 
                 <span className="block">communication. Real-time, organized,</span> 
                 <span className="block">and secure.</span>
               </p>
-              {/* Social icons */}
+              
               <div className="flex items-center gap-3">
                 <a href="#" className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-400 transition">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
@@ -236,10 +236,10 @@ const App = () => {
               </div>
             </div>
  
-            {/* Column 2 — Product links */}
+            
             <div>
-              <h4 className="text-slate-900 font-semibold text-sm tracking-widest uppercase mb-5">Product</h4>
-              <ul className="space-y-3">
+              <h4 className="text-slate-900 font-semibold text-sm tracking-widest uppercase mb-6">Product</h4>
+              <ul className="space-y-4">
                 <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Features</a></li>
                 <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Integrations</a></li>
                 <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Pricing</a></li>
@@ -248,22 +248,34 @@ const App = () => {
             </div>
              
               <div>
-              <h4 className="text-slate-900 font-semibold text-sm tracking-widest uppercase mb-5">company</h4>
-              <ul className="space-y-3">
+              <h4 className="text-slate-900 font-semibold text-sm tracking-widest uppercase mb-6">company</h4>
+              <ul className="space-y-4">
                 <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">About</a></li>
                 <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Careers</a></li>
                 <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Privacy</a></li>
                 <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Terms</a></li>
               </ul>
             </div>
+             <div>
+              <h4 className="text-slate-900 font-semibold text-sm tracking-widest uppercase mb-6">resources</h4>
+              <ul className="space-y-4">
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Documentation</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Help Center</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Community</a></li>
+                <li><a href="#" className="text-slate-500 text-sm hover:text-slate-800 transition">Status</a></li>
+              </ul>
+            </div>
           </div>
  
-          {/* Bottom row — copyright */}
-          <div className="border-t border-slate-200 pt-5">
+        
+          <div className="border-t border-slate-200 pt-5 flex items-center justify-between">
             <p className="text-slate-400 text-xs">© 2024 Syncrova Inc. All rights reserved.</p>
+            <div className="flex items-center gap-6">
+              <a href="#" className="text-slate-400 text-xs hover:text-slate-600 transition">Cookie Policy</a>
+              <a href="#" className="text-slate-400 text-xs hover:text-slate-600 transition">Security</a>
+            </div>
           </div>
- 
-        </div>
+           </div>
       </footer>
 
     </>
