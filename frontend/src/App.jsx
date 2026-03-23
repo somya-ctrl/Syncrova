@@ -1,37 +1,64 @@
-import React from "react";
+import React,{ useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt, faTableCells, faServer } from "@fortawesome/free-solid-svg-icons";
-
+import { faBolt, faTableCells, faServer,faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
   return (
     <>
-      {/* Navbar */}
-      <nav className="h-[70px] bg-white-70 flex items-center justify-between px-8 border-b border-slate-200">
-        
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded-md flex items-center justify-center text-white text-lg font-bold">
-            ↔
-          </div>
-          <h1 className="text-slate-800 font-semibold text-lg">Syncrova</h1>
+
+    <nav className="h-[70px] bg-white flex items-center justify-between px-8 border-b border-slate-200 relative z-50">
+
+      {/* Logo */}
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 bg-indigo-600 rounded-md flex items-center justify-center text-white text-lg font-bold">
+          ↔
         </div>
+        <h1 className="text-slate-800 font-semibold text-lg">Syncrova</h1>
+      </div>
 
-        <div className="flex gap-8 text-slate-600 font-medium">
-          <a href="#">Features</a>
-          <a href="#">Pricing</a>
-          <a href="#">About</a>
-        </div>
+      {/* Desktop Nav Links */}
+      <div className="hidden md:flex gap-8 text-slate-600 font-medium">
+        <a href="#" className="hover:text-indigo-600 transition">Features</a>
+        <a href="#" className="hover:text-indigo-600 transition">Pricing</a>
+        <a href="#" className="hover:text-indigo-600 transition">About</a>
+      </div>
 
-        <div className="flex items-center gap-6">
-          <a href="#" className="text-slate-600 font-medium">
-            Login
-          </a>
+      {/* Desktop CTA */}
+      <div className="hidden md:flex items-center gap-6">
+        <a href="#" className="text-slate-600 font-medium hover:text-indigo-600 transition">
+          Login
+        </a>
+        <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition">
+          Get Started
+        </button>
+      </div>
 
-          <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition">
+      {/* Mobile Hamburger Button */}
+      <button
+        className="md:hidden text-slate-700 text-xl p-2 rounded-md hover:bg-slate-100 transition"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle menu"
+      >
+        <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
+      </button>
+
+      {/* Mobile Dropdown Menu */}
+      {menuOpen && (
+        <div className="absolute top-[70px] left-0 w-full bg-white border-t border-slate-200 shadow-lg flex flex-col px-6 py-5 gap-4 md:hidden">
+          <a href="#" className="text-slate-700 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Features</a>
+          <a href="#" className="text-slate-700 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Pricing</a>
+          <a href="#" className="text-slate-700 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>About</a>
+          <hr className="border-slate-200" />
+          <a href="#" className="text-slate-600 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Login</a>
+          <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition w-full">
             Get Started
           </button>
         </div>
-      </nav>
+      )}
+
+    </nav>
+ 
 
       {/* Hero Section */}
       <section className="relative  bg-slate-200 pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
