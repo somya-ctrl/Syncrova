@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt, faTableCells, faServer, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const LandingPage = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);     
 
   return (
     <>
