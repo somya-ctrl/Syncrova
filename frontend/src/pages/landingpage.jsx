@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt, faTableCells, faServer, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -25,10 +26,10 @@ const LandingPage = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-6">
-          <a href="#" className="text-slate-600 font-medium hover:text-indigo-600 transition">Login</a>
-          <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition">
+          <Link to="/login" className="text-slate-600 font-medium hover:text-indigo-600 transition">Login</Link>
+          <Link to="/login" className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition inline-block">
             Get Started
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -47,10 +48,10 @@ const LandingPage = () => {
             <a href="#" className="text-slate-700 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Pricing</a>
             <a href="#" className="text-slate-700 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>About</a>
             <hr className="border-slate-200" />
-            <a href="#" className="text-slate-600 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Login</a>
-            <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition w-full">
+            <Link to="/login" className="text-slate-600 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Login</Link>
+            <Link to="/login" className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition w-full inline-block text-center">
               Get Started
-            </button>
+            </Link>
           </div>
         )}
       </nav>
@@ -70,9 +71,9 @@ const LandingPage = () => {
               <p className="text-lg text-slate-600 text-center mb-8">
                 Experience the next generation of communication with organised channels, custom servers and lightning-fast messaging designed for modern teams.
               </p>
-              <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition">
+              <Link to="/login" className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition inline-block">
                 Get Started for free
-              </button>
+              </Link>
             </div>
           </div>
         </div>

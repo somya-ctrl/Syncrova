@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function GithubIcon() {
   return (
@@ -116,7 +117,7 @@ export default function SyncrovaLogin() {
 
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-10 lg:hidden">
-            <span className="text-2xl font-extrabold tracking-tighter text-[#3b2bee]">Syncrova</span>
+            <Link to="/" className="text-2xl font-extrabold tracking-tighter text-[#3b2bee] hover:text-[#4f46e5] transition">Syncrova</Link>
           </div>
 
           <div className="mb-8">
