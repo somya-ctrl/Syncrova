@@ -1,8 +1,13 @@
+# Syncrova
+https://syncrova-phi.vercel.app/
+Real-time community and messaging platform — Node.js backend + React frontend.
 
-# Syncrova(Real-Time Communication Platform (Backend))
+| Part | Progress | Details |
+|------|----------|---------|
+| **Backend** | ~70% | Auth, servers, channels, messaging, Socket.io |
+| **Frontend** | ~35% | Landing, login & signup UI, routing — no API yet |
 
-A scalable backend for a real-time community and messaging platform built with Node.js, Express, MongoDB, and Socket.io.
-Supports authentication, servers, channels, messaging, and real-time events.
+Frontend docs: [frontend/README.md](./frontend/README.md)
 
 ---
 
@@ -70,31 +75,63 @@ Supports authentication, servers, channels, messaging, and real-time events.
 
 ---
 
+## 🖥 Frontend (summary)
+
+**Location:** `frontend/` — see [frontend/README.md](./frontend/README.md) for full details.
+
+### Done
+
+* Landing page (hero, features, footer, mobile nav)
+* Login & signup pages (UI and forms)
+* React Router: `/`, `/login`, `/signup`
+* Login ↔ signup navigation links
+* Vite + Tailwind production build (Vercel-ready)
+
+### Not started
+
+* Backend API integration (auth, JWT)
+* Dashboard: servers, channels, messaging
+* Socket.io client & protected routes
+
+---
+
 ## 📁 Project Structure
 
 ```
-src/
- ├── controllers
- ├── services
- ├── repositories
- ├── models
- ├── routes
- ├── middlewares
- ├── app.js
- └── server.js
-
+Syncrova/
+├── frontend/          # React + Vite (see frontend/README.md)
+│   └── src/pages/
+└── src/               # Backend (Express)
+    ├── controllers
+    ├── services
+    ├── repositories
+    ├── models
+    ├── routes
+    ├── middlewares
+    ├── app.js
+    └── server.js
 ```
+
 ## ⚙️ Installation
 
-git clone <
-cd project
+### Backend
+
+```bash
+git clone <repo-url>
+cd Syncrova
 npm install
-
-
-Run:
-
 npm run dev
+```
 
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
 
 ## 📡 Socket Events
 
@@ -108,10 +145,17 @@ npm run dev
 
 ## 🎯 Upcoming Features
 
+**Backend**
+
 * Roles & permissions
 * Message reactions
 * Typing indicators
 * Unread message tracking
 * File uploads
-* Frontend (React)
+
+**Frontend**
+
+* Auth API integration & protected routes
+* App shell (servers, channels, chat)
+* Socket.io real-time messaging UI
 
