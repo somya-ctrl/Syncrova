@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import LandingPage from "./pages/Landingpage";
+import LandingPage from "./pages/landingpage";
 import SyncrovaLogin from "./pages/Login";
-import SignupPage from "./pages/Signup";
+import SignupPage from "./pages/signup";
 const App = () => {
   return (
     <Router>
