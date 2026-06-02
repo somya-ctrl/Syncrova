@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -678,8 +679,8 @@ export default function SignupPage() {
               <div style={{ marginTop: "32px", textAlign: "center" }}>
                 <p style={{ color: "#475569", fontSize: "0.875rem", fontWeight: 500 }}>
                   Already have an account?{" "}
-                  <a
-                    href="#"
+                  <Link
+                    to="/login"
                     style={{
                       color: "#3b2bee",
                       fontWeight: 700,
@@ -688,7 +689,7 @@ export default function SignupPage() {
                     }}
                   >
                     Login
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>

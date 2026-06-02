@@ -248,9 +248,9 @@ export default function SyncrovaLogin() {
           {/* Sign up */}
           <p className="mt-8 text-center text-xs text-slate-500 font-medium">
             Don&apos;t have an account?{" "}
-            <a href="#" className="text-[#3b2bee] font-bold hover:underline">
+            <Link to="/signup" className="text-[#3b2bee] font-bold hover:underline">
               Sign up for free
-            </a>
+            </Link>
           </p>
         </div>
       </div>
