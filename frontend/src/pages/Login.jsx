@@ -87,7 +87,12 @@ export default function SyncrovaLogin() {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || "Login failed");
+      if (data.errors && Array.isArray(data.errors)) {
+        // Zod validation errors (e.g. from backend validate.middleware.js)
+        const validationMessages = data.errors.map(err => err.message).join(" | ");
+        throw new Error(validationMessages);
+      }
+      throw new Error(data.error || data.message || "Login failed");
     }
 
     // Save JWT token
