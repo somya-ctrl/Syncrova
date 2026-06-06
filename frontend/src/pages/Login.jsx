@@ -1,17 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { loginUser } from "../services/authService";
+import { Link, useNavigate } from "react-router-dom";
 
-const handleLogin = async (e) => {
-  e.preventDefault();
-
-  const data = await loginUser(email, password);
-
-  if (data.token) {
-    localStorage.setItem("token", data.token);
-    navigate("/home");
-  }
-};
 function GithubIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -61,16 +50,52 @@ function SparkleIcon() {
 }
 
 export default function SyncrovaLogin() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // handle login logic here
-    console.log({ email, password, remember });
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch(
+      "https://syncrova-z7sn.onrender.com/api/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Login failed");
+    }
+
+    // Save JWT token
+    localStorage.setItem("token", data.accesstoken);
+
+    // Save user data if returned
+    if (data.user) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+    }
+
+    alert("Login successful!");
+
+    navigate("/home");
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
+};
 
   return (
     <div className="min-h-screen flex font-['Plus_Jakarta_Sans',sans-serif] bg-[#f6f6f8]">

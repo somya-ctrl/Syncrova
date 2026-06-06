@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
+   const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     full_name: "",
@@ -18,11 +20,48 @@ export default function SignupPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your signup logic here
-    console.log("Form submitted:", formData);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!formData.terms) {
+    alert("Please accept Terms and Conditions");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://syncrova-z7sn.onrender.com/api/auth/signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          full_name: formData.full_name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Signup failed");
+    }
+
+    alert("Signup successful!");
+
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+    }
+
+    navigate("/home");
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
+};
 
   return (
     <>
