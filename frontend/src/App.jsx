@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LandingPage from "./pages/landingpage";
 import SyncrovaLogin from "./pages/Login";
 import SignupPage from "./pages/signup";
+import Home from "./pages/Home";
 const App = () => {
   return (
     <Router>
@@ -10,6 +11,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<SyncrovaLogin />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

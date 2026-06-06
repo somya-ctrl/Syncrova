@@ -1,6 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { loginUser } from "../services/authService";
 
+const handleLogin = async (e) => {
+  e.preventDefault();
+
+  const data = await loginUser(email, password);
+
+  if (data.token) {
+    localStorage.setItem("token", data.token);
+    navigate("/home");
+  }
+};
 function GithubIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
