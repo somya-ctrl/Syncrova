@@ -9,7 +9,7 @@ export default function SignupPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    full_name: "",
+    username: "",
     email: "",
     password: "",
     terms: false,
@@ -48,7 +48,7 @@ export default function SignupPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          full_name: formData.full_name,
+          username: formData.username,
           email: formData.email,
           password: formData.password,
         }),
