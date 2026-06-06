@@ -459,7 +459,7 @@ export default function SignupPage() {
                 {/* Full Name */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   <label
-                    htmlFor="full_name"
+                    htmlFor="username"
                     style={{
                       fontSize: "0.875rem",
                       fontWeight: 700,
@@ -486,11 +486,11 @@ export default function SignupPage() {
                     </span>
                     <input
                       className="signup-input"
-                      id="full_name"
-                      name="full_name"
+                      id="username"
+                      name="username"
                       type="text"
                       placeholder="John Doe"
-                      value={formData.full_name}
+                      value={formData.username}
                       onChange={handleChange}
                       style={{
                         width: "100%",
