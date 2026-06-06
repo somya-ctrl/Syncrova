@@ -66,8 +66,12 @@ export default function SyncrovaLogin() {
   setLoading(true);
 
   try {
+    const apiUrl = import.meta.env.DEV 
+      ? "http://localhost:3000/api/auth/login" 
+      : "https://syncrova-z7sn.onrender.com/api/auth/login";
+
     const response = await fetch(
-      "http://localhost:3000/api/auth/login",
+      apiUrl,
       {
         method: "POST",
         headers: {
