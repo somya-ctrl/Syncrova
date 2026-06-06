@@ -5,6 +5,9 @@ export default function SignupPage() {
    const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -22,15 +25,19 @@ export default function SignupPage() {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
+  setSuccessMessage("");
+  setErrorMessage("");
 
   if (!formData.terms) {
-    alert("Please accept Terms and Conditions");
+    setErrorMessage("Please accept Terms and Conditions");
     return;
   }
 
+  setLoading(true);
+
   try {
     const response = await fetch(
-      "https://syncrova-z7sn.onrender.com/api/auth/signup",
+      "http://localhost:3000/api/auth/signup",
       {
         method: "POST",
         headers: {
@@ -47,19 +54,30 @@ export default function SignupPage() {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Signup failed");
+      throw new Error(data.error || "Signup failed");
     }
 
-    alert("Signup successful!");
-
-    if (data.token) {
-      localStorage.setItem("token", data.token);
+    // Save JWT token
+    if (data.accesstoken) {
+      localStorage.setItem("token", data.accesstoken);
     }
 
-    navigate("/home");
+    // Save user data if returned
+    if (data.user) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+    }
+
+    setSuccessMessage("Account created successfully! Redirecting...");
+
+    // Navigate to home after a short delay so user sees the success message
+    setTimeout(() => {
+      navigate("/home");
+    }, 2000);
   } catch (error) {
     console.error(error);
-    alert(error.message);
+    setErrorMessage(error.message);
+  } finally {
+    setLoading(false);
   }
 };
 
@@ -683,21 +701,72 @@ export default function SignupPage() {
                   </label>
                 </div>
 
+                {/* Success Message */}
+                {successMessage && (
+                  <div
+                    style={{
+                      padding: "14px 16px",
+                      borderRadius: "12px",
+                      backgroundColor: "#ecfdf5",
+                      border: "1px solid #6ee7b7",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <span
+                      className="material-symbols-outlined"
+                      style={{ color: "#059669", fontSize: "22px" }}
+                    >
+                      check_circle
+                    </span>
+                    <span style={{ color: "#065f46", fontWeight: 600, fontSize: "0.9rem" }}>
+                      {successMessage}
+                    </span>
+                  </div>
+                )}
+
+                {/* Error Message */}
+                {errorMessage && (
+                  <div
+                    style={{
+                      padding: "14px 16px",
+                      borderRadius: "12px",
+                      backgroundColor: "#fef2f2",
+                      border: "1px solid #fca5a5",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <span
+                      className="material-symbols-outlined"
+                      style={{ color: "#dc2626", fontSize: "22px" }}
+                    >
+                      error
+                    </span>
+                    <span style={{ color: "#991b1b", fontWeight: 600, fontSize: "0.9rem" }}>
+                      {errorMessage}
+                    </span>
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <button
                   type="submit"
                   className="btn-primary"
+                  disabled={loading}
                   style={{
                     width: "100%",
                     padding: "16px",
-                    backgroundColor: "#3b2bee",
+                    backgroundColor: loading ? "#818cf8" : "#3b2bee",
                     color: "white",
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     borderRadius: "12px",
                     border: "none",
                     boxShadow: "0 10px 25px rgba(59,43,238,0.2)",
-                    cursor: "pointer",
+                    cursor: loading ? "not-allowed" : "pointer",
                     transition: "all 0.2s",
                     display: "flex",
                     alignItems: "center",
@@ -705,11 +774,12 @@ export default function SignupPage() {
                     gap: "8px",
                     marginTop: "4px",
                     fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    opacity: loading ? 0.7 : 1,
                   }}
                 >
-                  <span>Create Account</span>
+                  <span>{loading ? "Creating Account..." : "Create Account"}</span>
                   <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
-                    arrow_forward
+                    {loading ? "hourglass_empty" : "arrow_forward"}
                   </span>
                 </button>
               </form>

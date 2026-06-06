@@ -55,13 +55,19 @@ export default function SyncrovaLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
  const handleSubmit = async (e) => {
   e.preventDefault();
+  setSuccessMessage("");
+  setErrorMessage("");
+  setLoading(true);
 
   try {
     const response = await fetch(
-      "https://syncrova-z7sn.onrender.com/api/auth/login",
+      "http://localhost:3000/api/auth/login",
       {
         method: "POST",
         headers: {
@@ -88,12 +94,17 @@ export default function SyncrovaLogin() {
       localStorage.setItem("user", JSON.stringify(data.user));
     }
 
-    alert("Login successful!");
+    setSuccessMessage("Login successful! Redirecting...");
 
-    navigate("/home");
+    // Navigate to home after a short delay so user sees the success message
+    setTimeout(() => {
+      navigate("/home");
+    }, 1500);
   } catch (error) {
     console.error(error);
-    alert(error.message);
+    setErrorMessage(error.message);
+  } finally {
+    setLoading(false);
   }
 };
 
@@ -267,17 +278,47 @@ export default function SyncrovaLogin() {
               </label>
             </div>
 
+            {/* Success Message */}
+            {successMessage && (
+              <div
+                className="mb-4 flex items-center gap-2 p-3 text-sm text-[#065f46] bg-[#ecfdf5] border border-[#6ee7b7] rounded-xl"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                <span className="font-semibold">{successMessage}</span>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {errorMessage && (
+              <div
+                className="mb-4 flex items-center gap-2 p-3 text-sm text-[#991b1b] bg-[#fef2f2] border border-[#fca5a5] rounded-xl"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span className="font-semibold">{errorMessage}</span>
+              </div>
+            )}
+
             {/* Submit */}
             <button
               type="submit"
-              className="w-full py-3.5 bg-[#3b2bee] hover:bg-[#2b0ae2] text-white text-sm font-bold rounded-xl shadow-lg shadow-[#3b2bee]/20 hover:shadow-[#3b2bee]/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              disabled={loading}
+              className={`w-full py-3.5 ${loading ? 'bg-[#818cf8] cursor-not-allowed opacity-70' : 'bg-[#3b2bee] hover:bg-[#2b0ae2]'} text-white text-sm font-bold rounded-xl shadow-lg shadow-[#3b2bee]/20 hover:shadow-[#3b2bee]/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2`}
             >
-              Login
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                <polyline points="10 17 15 12 10 7" />
-                <line x1="15" y1="12" x2="3" y2="12" />
-              </svg>
+              {loading ? "Logging in..." : "Login"}
+              {!loading && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                  <polyline points="10 17 15 12 10 7" />
+                  <line x1="15" y1="12" x2="3" y2="12" />
+                </svg>
+              )}
             </button>
           </form>
 
