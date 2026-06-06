@@ -1,7 +1,9 @@
 const { z } =  require("zod");
 
 const signupSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters"),
+  username: z.string()
+    .min(3, "Username must be at least 3 characters")
+    .regex(/^[a-zA-Z\s]+$/, "Full Name must contain only letters and spaces"),
   email: z.string().email("Invalid email format"),
   password: z.string()
     .min(8, "Password must be at least 8 characters")
