@@ -8,6 +8,35 @@ const Home = () => {
   ];
 
   return (
+    <>
+    <nav className="w-20 bg-surface-container-lowest border-r border-outline-variant/30 flex flex-col items-center py-5 gap-4 z-50">
+  
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-indigo-600 rounded-md flex items-center justify-center text-white text-lg font-bold">
+            ↔
+         </div></div>
+    <div className="w-8 h-px bg-outline-variant/30 my-1"></div>
+<div className="server-icon bg-surface-container hover:bg-primary/20 group">
+<span className="material-symbols-outlined text-on-surface-variant group-hover:text-primary">developer_board</span>
+</div>
+<div className="server-icon bg-surface-container hover:bg-primary/20 group">
+<span className="material-symbols-outlined text-on-surface-variant group-hover:text-primary">palette</span>
+<div className="notification-dot"></div>
+</div>
+<div className="server-icon bg-surface-container hover:bg-primary/20 group">
+<span className="material-symbols-outlined text-on-surface-variant group-hover:text-primary">rocket_launch</span>
+</div>
+<div className="mt-auto flex flex-col gap-4">
+<button className="server-icon bg-transparent border-2 border-dashed border-outline-variant/50 text-on-surface-variant hover:border-primary hover:text-primary">
+<span className="material-symbols-outlined">add</span>
+</button>
+<button className="server-icon bg-transparent border-2 border-dashed border-outline-variant/50 text-on-surface-variant hover:border-secondary hover:text-secondary">
+<span className="material-symbols-outlined">explore</span>
+</button>
+</div>
+
+  {/* content */}
+</nav>
     <div className="min-h-screen bg-gray-100 p-6">
       {/* Header */}
       <div className="bg-white shadow rounded-lg p-5 mb-6">
@@ -44,6 +73,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
