@@ -62,6 +62,40 @@ const Home = () => {
               <span className="material-symbols-outlined text-xl">psychology</span> AI Hub
             </a>
           </nav>
+          <div>
+<div class="flex items-center justify-between px-3 mb-2">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Channels</span>
+<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-primary">add</button>
+</div>
+<nav class="space-y-0.5">
+<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
+<span class="text-outline text-lg">#</span> general
+                </a>
+<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
+<span class="text-outline text-lg">#</span> announcements
+                </a>
+<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
+<span class="text-outline text-lg">#</span> development
+                    <span class="ml-auto w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover:opacity-100"></span>
+</a>
+<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface" href="#">
+<span class="text-outline text-lg">#</span> design
+                </a>
+</nav>
+</div>
+<div>
+<div class="flex items-center justify-between px-3 mb-2">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Voice Channels</span>
+</div>
+<nav class="space-y-0.5">
+<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-emerald-400/80 hover:bg-emerald-400/10 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">volume_up</span> Lounge
+                </a>
+<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">volume_up</span> Sprint Sync
+                </a>
+</nav>
+</div>
         </div>
       </aside>
 
