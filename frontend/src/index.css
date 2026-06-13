@@ -17,3 +17,12 @@
   font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+@layer base {
+  html, body {
+    @apply bg-surface-container;
+  }
+  
+  #root {
+    @apply bg-surface-container min-h-screen;
+  }
+}
