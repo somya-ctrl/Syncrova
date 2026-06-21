@@ -1,6 +1,10 @@
 import React from "react";
 
 const Home = () => {
+  const storedUser = localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
+  const username = user?.username || "User";
+
   const servers = [
     { id: 1, name: "Developers Hub" },
     { id: 2, name: "Gaming Zone" },
@@ -63,36 +67,36 @@ const Home = () => {
             </a>
           </nav>
           <div>
-<div class="flex items-center justify-between px-3 mb-2">
-<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Channels</span>
-<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-primary">add</button>
+<div className="flex items-center justify-between px-3 mb-2">
+<span className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Channels</span>
+<button className="material-symbols-outlined text-sm text-on-surface-variant hover:text-primary">add</button>
 </div>
-<nav class="space-y-0.5">
-<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
-<span class="text-outline text-lg">#</span> general
+<nav className="space-y-0.5">
+<a className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
+<span className="text-outline text-lg">#</span> general
                 </a>
-<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
-<span class="text-outline text-lg">#</span> announcements
+<a className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
+<span className="text-outline text-lg">#</span> announcements
                 </a>
-<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
-<span class="text-outline text-lg">#</span> development
-                    <span class="ml-auto w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover:opacity-100"></span>
+<a className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface group" href="#">
+<span className="text-outline text-lg">#</span> development
+                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover:opacity-100"></span>
 </a>
-<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface" href="#">
-<span class="text-outline text-lg">#</span> design
+<a className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 hover:text-on-surface" href="#">
+<span className="text-outline text-lg">#</span> design
                 </a>
 </nav>
 </div>
 <div>
-<div class="flex items-center justify-between px-3 mb-2">
-<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Voice Channels</span>
+<div className="flex items-center justify-between px-3 mb-2">
+<span className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Voice Channels</span>
 </div>
-<nav class="space-y-0.5">
-<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-emerald-400/80 hover:bg-emerald-400/10 transition-all" href="#">
-<span class="material-symbols-outlined text-lg">volume_up</span> Lounge
+<nav className="space-y-0.5">
+<a className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-emerald-400/80 hover:bg-emerald-400/10 transition-all" href="#">
+<span className="material-symbols-outlined text-lg">volume_up</span> Lounge
                 </a>
-<a class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 transition-all" href="#">
-<span class="material-symbols-outlined text-lg">volume_up</span> Sprint Sync
+<a className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-variant/20 transition-all" href="#">
+<span className="material-symbols-outlined text-lg">volume_up</span> Sprint Sync
                 </a>
 </nav>
 </div>
@@ -102,9 +106,9 @@ const Home = () => {
       {/* Main Content */}
       <div className="flex-1 bg-gray-100 p-6">
         <div className="bg-white shadow rounded-lg p-5 mb-6">
-          <h1 className="text-3xl font-bold">Welcome to Syncrova 👋</h1>
+          <h1 className="text-3xl font-bold">Welcome back, {username}!</h1>
           <p className="text-gray-600 mt-2">
-            Create servers, join communities, and chat with friends.
+            You have 3 high-priority AI tasks pending.Check your dashboard for updates and new messages from your team.
           </p>
         </div>
         <div className="flex gap-4 mb-6">
@@ -128,6 +132,8 @@ const Home = () => {
       </div>
 
     </div>
+
+   
   );
 };
 

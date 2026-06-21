@@ -37,7 +37,7 @@ export default function SignupPage() {
 
   try {
     const apiUrl = import.meta.env.DEV 
-      ? "http://localhost:3000/api/auth/signup" 
+      ? "http://localhost:5000/api/auth/signup" 
       : "https://syncrova-z7sn.onrender.com/api/auth/signup";
 
     const response = await fetch(
