@@ -6,11 +6,18 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        geist: ["Geist Sans", "Inter", "system-ui", "sans-serif"],
+      },
       colors: {
         background: "#08080f",
 
         primary: "#818cf8",
         secondary: "#a78bfa",
+
+        "accent-blue": "#4F8CFF",
+        "accent-purple": "#7C5CFF",
+        "accent-cyan": "#00E5FF",
 
         "surface-container-lowest": "#020205",
         "surface-container-low": "#09090f",

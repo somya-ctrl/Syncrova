@@ -1,40 +1,42 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt, faTableCells, faServer, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import Hero from "../components/hero/Hero";
+import FeatureTimeline from "../components/hero/FeatureTimeline";
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);     
 
   return (
     <>
-      <nav className="h-[70px] bg-white flex items-center justify-between px-8 border-b border-slate-200 relative z-50">
+      <nav className="h-[70px] bg-[#050505] flex items-center justify-between px-8 border-b border-white/10 relative z-50">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded-md flex items-center justify-center text-white text-lg font-bold">
+          <div className="w-10 h-10 bg-gradient-to-br from-accent-blue to-accent-purple rounded-md flex items-center justify-center text-white text-lg font-bold">
             ↔
           </div>
-          <h1 className="text-slate-800 font-semibold text-lg">Syncrova</h1>
+          <h1 className="text-white font-semibold text-lg">Syncrova</h1>
         </div>
 
         {/* Desktop Nav Links */}
-        <div className="hidden md:flex gap-8 text-slate-600 font-medium">
-          <a href="#" className="hover:text-indigo-600 transition">Features</a>
-          <a href="#" className="hover:text-indigo-600 transition">Pricing</a>
-          <a href="#" className="hover:text-indigo-600 transition">About</a>
+        <div className="hidden md:flex gap-8 text-white/60 font-medium">
+          <a href="#" className="hover:text-white transition">Features</a>
+          <a href="#" className="hover:text-white transition">Pricing</a>
+          <a href="#" className="hover:text-white transition">About</a>
         </div>
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-6">
-          <Link to="/login" className="text-slate-600 font-medium hover:text-indigo-600 transition">Login</Link>
-          <Link to="/login" className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition inline-block">
+          <Link to="/login" className="text-white/60 font-medium hover:text-white transition">Login</Link>
+          <Link to="/login" className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-5 py-2 rounded-lg shadow-md hover:opacity-90 transition inline-block">
             Get Started
           </Link>
         </div>
 
         {/* Mobile Hamburger Button */}
         <button
-          className="md:hidden text-slate-700 text-xl p-2 rounded-md hover:bg-slate-100 transition"
+          className="md:hidden text-white/80 text-xl p-2 rounded-md hover:bg-white/5 transition"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -43,86 +45,23 @@ const LandingPage = () => {
 
         {/* Mobile Dropdown Menu */}
         {menuOpen && (
-          <div className="absolute top-[70px] left-0 w-full bg-white border-t border-slate-200 shadow-lg flex flex-col px-6 py-5 gap-4 md:hidden">
-            <a href="#" className="text-slate-700 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Features</a>
-            <a href="#" className="text-slate-700 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Pricing</a>
-            <a href="#" className="text-slate-700 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>About</a>
-            <hr className="border-slate-200" />
-            <Link to="/login" className="text-slate-600 font-medium hover:text-indigo-600 transition" onClick={() => setMenuOpen(false)}>Login</Link>
-            <Link to="/login" className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition w-full inline-block text-center">
+          <div className="absolute top-[70px] left-0 w-full bg-[#050505] border-t border-white/10 shadow-lg flex flex-col px-6 py-5 gap-4 md:hidden">
+            <a href="#" className="text-white/70 font-medium hover:text-white transition" onClick={() => setMenuOpen(false)}>Features</a>
+            <a href="#" className="text-white/70 font-medium hover:text-white transition" onClick={() => setMenuOpen(false)}>Pricing</a>
+            <a href="#" className="text-white/70 font-medium hover:text-white transition" onClick={() => setMenuOpen(false)}>About</a>
+            <hr className="border-white/10" />
+            <Link to="/login" className="text-white/70 font-medium hover:text-white transition" onClick={() => setMenuOpen(false)}>Login</Link>
+            <Link to="/login" className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-5 py-2 rounded-lg shadow-md hover:opacity-90 transition w-full inline-block text-center">
               Get Started
             </Link>
           </div>
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative bg-slate-200 pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-indigo-100 text-indigo-600 mb-6 ring-1 ring-inset ring-indigo-200">
-              <span className="mr-2">✨</span> Now in Public Beta
-            </div>
-            <div className="container mx-auto px-8">
-              <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 mb-8 leading-[1.1]">
-                Connect, Collaborate, and{" "}
-                <span className="text-indigo-600">Sync</span> with Syncrova
-              </h1>
-              <p className="text-lg text-slate-600 text-center mb-8">
-                Experience the next generation of communication with organised channels, custom servers and lightning-fast messaging designed for modern teams.
-              </p>
-              <Link to="/login" className="bg-indigo-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition inline-block">
-                Get Started for free
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-16 lg:mt-24 relative pl-6 pr-6">
-          <div className="absolute inset-0 bg-gradient-to-t from-background-light dark:from-background-dark via-transparent to-transparent z-10"></div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl bg-white dark:bg-slate-900">
-            <img
-              alt="App Interface Preview"
-              className="w-full h-auto object-cover aspect-video"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0DQ5XsPUd7_ZsF7aE6C_OcS9olc92ms9CNZ3Q0OaCbBY4v3EXKfpdEWpDplGd9hledFcjHcf1_RBLc62TiRs28SHqXjlpZNCy5lRqwI--aULsJFMqGY38-ZQBFdnExvDJ1wwtEhawYfJPsCZXnxb0XWQRQfSMXiObK2snj7s-9ZFN1cF0BXuWwZdSkHjBn2xHavn4fPQytXsWoBjRrvq0L_qqsyqvNwqa8gWZV4WskeoEY4TfzAD7V2YuDo1UvUTJJ3S0PbVj7F0u"
-            />
-          </div>
-        </div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 blur-[120px] rounded-full -z-10"></div>
-      </section>
+      <Hero />
 
       {/* Features Section */}
-      <h2 className="text-blue-700 text-2xl pt-4 pl-4">KEY FEATURES</h2>
-      <section>
-        <h2 className="text-slate-900 text-4xl lg:text-4xl font-bold pt-4 pl-4">Streamline Your Communication</h2>
-        <p className="text-slate-600 text-lg pt-4 pl-4">
-          Everything you need to stay connected and organized in one place, built with speed and
-          <span className="block"> security in mind.</span>
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 pl-4 pr-4 pb-4">
-          <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition border border-slate-200">
-            <div className="bg-blue-100 w-12 h-12 flex items-center justify-center rounded-xl">
-              <FontAwesomeIcon icon={faBolt} className="text-blue-600 text-lg" />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Real-time Messaging</h3>
-            <p className="text-slate-600">Instant delivery with sub-50ms latency. Experience seamless conversations that flow naturally without delays.</p>
-          </div>
-          <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition border border-slate-200">
-            <div className="bg-blue-100 w-12 h-12 flex items-center justify-center rounded-xl">
-              <FontAwesomeIcon icon={faTableCells} className="text-blue-600 text-lg" />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Organized Channels</h3>
-            <p className="text-slate-600">Categorize conversations by project, topic, or department. Keep your workspace clean and your focus sharp.</p>
-          </div>
-          <div className="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-lg transition border border-slate-200">
-            <div className="bg-blue-100 w-12 h-12 flex items-center justify-center rounded-xl">
-              <FontAwesomeIcon icon={faServer} className="text-blue-600 text-lg" />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Personal Servers</h3>
-            <p className="text-slate-600">Create private spaces for your community. Full control over permissions, roles, and custom integrations.</p>
-          </div>
-        </div>
-      </section>
+      <FeatureTimeline />
 
       {/* Modern Interface Section */}
       <div className="bg-slate-200">
