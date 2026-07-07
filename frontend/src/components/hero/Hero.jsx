@@ -21,7 +21,7 @@ import FeatureMarquee from "./FeatureMarquee";
 
 const marqueeRows = [
   {
-    duration: 24,
+    duration: 11,
     items: [
       { icon: MessageSquare, title: "Real-time Messaging", desc: "Sub-50ms latency" },
       { icon: Video, title: "Voice & Video", desc: "Crystal clear calls" },
@@ -29,7 +29,7 @@ const marqueeRows = [
     ],
   },
   {
-    duration: 30,
+    duration: 14,
     items: [
       { icon: Sparkles, title: "AI Assistant", desc: "Smart meeting summaries" },
       { icon: ShieldCheck, title: "End-to-end Encrypted", desc: "Secure by default" },
@@ -37,7 +37,7 @@ const marqueeRows = [
     ],
   },
   {
-    duration: 27,
+    duration: 12.5,
     items: [
       { icon: Paperclip, title: "File Sharing", desc: "Native previews" },
       { icon: Bell, title: "Smart Notifications", desc: "Stay in the loop" },

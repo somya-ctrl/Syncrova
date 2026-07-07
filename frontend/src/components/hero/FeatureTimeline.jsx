@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { MessageSquare, Hash, Video, ShieldCheck, Sparkles } from "lucide-react";
 import GlassCard from "./GlassCard";
 
@@ -31,7 +31,31 @@ const features = [
   },
 ];
 
+const TimelineNode = ({ scrollYProgress, position }) => {
+  const lit = useTransform(scrollYProgress, [Math.max(position - 0.08, 0), position], [0, 1]);
+  const scale = useTransform(lit, [0, 1], [0.85, 1.15]);
+  const dotOpacity = useTransform(lit, [0, 1], [0.3, 1]);
+
+  return (
+    <motion.div
+      style={{ x: "-50%", y: "-50%", scale }}
+      className="absolute left-4 lg:left-1/2 top-6 lg:top-1/2 z-10 w-4 h-4 rounded-full border-2 border-accent-purple flex items-center justify-center"
+    >
+      <motion.div
+        style={{ opacity: dotOpacity }}
+        className="w-1.5 h-1.5 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(56,217,255,0.8)]"
+      />
+    </motion.div>
+  );
+};
+
 const FeatureTimeline = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
   return (
     <section className="relative bg-[#050505] py-24 lg:py-32 overflow-hidden">
       <div className="max-w-3xl mx-auto text-center px-6 mb-20 lg:mb-28">
@@ -49,66 +73,70 @@ const FeatureTimeline = () => {
         </p>
       </div>
 
-      <div className="relative max-w-5xl mx-auto px-6">
-        {/* Center line */}
-        <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 lg:-translate-x-1/2 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent" />
-        <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 lg:-translate-x-1/2 w-px bg-gradient-to-b from-accent-blue/0 via-accent-purple/50 to-accent-cyan/0 blur-[3px]" />
+      <div className="max-w-5xl mx-auto px-6">
+        <div ref={containerRef} className="relative">
+          {/* Center line track */}
+          <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 lg:-translate-x-1/2 w-px bg-white/10 rounded-full overflow-hidden">
+            <motion.div
+              style={{ scaleY: scrollYProgress, transformOrigin: "top" }}
+              className="absolute inset-0 w-full bg-gradient-to-b from-accent-blue via-accent-purple to-accent-cyan"
+            />
+          </div>
 
-        <div className="flex flex-col gap-14 lg:gap-20">
-          {features.map((feature, i) => {
-            const isLeft = i % 2 === 0;
-            return (
-              <div
-                key={feature.title}
-                className="relative pl-12 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-x-16 items-center"
-              >
-                {/* Node on the line */}
-                <div className="absolute left-4 lg:left-1/2 top-6 lg:top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-4 h-4 rounded-full bg-[#050505] border-2 border-accent-purple flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-accent-cyan shadow-[0_0_12px_rgba(56,217,255,0.8)]" />
-                </div>
+          <div className="flex flex-col gap-14 lg:gap-20">
+            {features.map((feature, i) => {
+              const isLeft = i % 2 === 0;
+              const position = i / (features.length - 1);
+              return (
+                <div
+                  key={feature.title}
+                  className="relative pl-12 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-x-16 items-center"
+                >
+                  <TimelineNode scrollYProgress={scrollYProgress} position={position} />
 
-                <div className={isLeft ? "lg:flex lg:justify-end" : ""}>
-                  {isLeft && (
-                    <motion.div
-                      initial={{ opacity: 0, x: -40 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-80px" }}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      className="w-full lg:max-w-md"
-                    >
-                      <GlassCard className="p-6 lg:p-7" hoverLift={false}>
-                        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 flex items-center justify-center text-accent-cyan mb-4">
-                          <feature.icon size={20} />
-                        </div>
-                        <h3 className="text-white text-lg font-semibold mb-2">{feature.title}</h3>
-                        <p className="text-white/50 text-sm leading-relaxed">{feature.desc}</p>
-                      </GlassCard>
-                    </motion.div>
-                  )}
-                </div>
+                  <div className={isLeft ? "lg:flex lg:justify-end" : ""}>
+                    {isLeft && (
+                      <motion.div
+                        initial={{ opacity: 0, x: -40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="w-full lg:max-w-md"
+                      >
+                        <GlassCard className="p-6 lg:p-7" hoverLift={false}>
+                          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 flex items-center justify-center text-accent-cyan mb-4">
+                            <feature.icon size={20} />
+                          </div>
+                          <h3 className="text-white text-lg font-semibold mb-2">{feature.title}</h3>
+                          <p className="text-white/50 text-sm leading-relaxed">{feature.desc}</p>
+                        </GlassCard>
+                      </motion.div>
+                    )}
+                  </div>
 
-                <div className={!isLeft ? "lg:flex lg:justify-start" : ""}>
-                  {!isLeft && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 40 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-80px" }}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      className="w-full lg:max-w-md"
-                    >
-                      <GlassCard className="p-6 lg:p-7" hoverLift={false}>
-                        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 flex items-center justify-center text-accent-cyan mb-4">
-                          <feature.icon size={20} />
-                        </div>
-                        <h3 className="text-white text-lg font-semibold mb-2">{feature.title}</h3>
-                        <p className="text-white/50 text-sm leading-relaxed">{feature.desc}</p>
-                      </GlassCard>
-                    </motion.div>
-                  )}
+                  <div className={!isLeft ? "lg:flex lg:justify-start" : ""}>
+                    {!isLeft && (
+                      <motion.div
+                        initial={{ opacity: 0, x: 40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="w-full lg:max-w-md"
+                      >
+                        <GlassCard className="p-6 lg:p-7" hoverLift={false}>
+                          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 flex items-center justify-center text-accent-cyan mb-4">
+                            <feature.icon size={20} />
+                          </div>
+                          <h3 className="text-white text-lg font-semibold mb-2">{feature.title}</h3>
+                          <p className="text-white/50 text-sm leading-relaxed">{feature.desc}</p>
+                        </GlassCard>
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
