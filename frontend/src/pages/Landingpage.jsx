@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Hero from "../components/hero/Hero";
 import FeatureTimeline from "../components/hero/FeatureTimeline";
+import BrandMark from "../components/hero/BrandMark";
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);     
@@ -120,8 +121,10 @@ const LandingPage = () => {
         </div>
       </section>
 
+      <BrandMark />
+
       {/* Footer */}
-      <footer className="bg-[#050505] border-t border-white/10 px-8 pt-12 pb-6">
+      <footer className="relative z-10 bg-[#050505] border-t border-white/10 px-8 pt-12 pb-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-between items-start mb-10">
             <div className="max-w-xs">
