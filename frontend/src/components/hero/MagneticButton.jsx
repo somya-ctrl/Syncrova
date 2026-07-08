@@ -18,13 +18,14 @@ const MagneticButton = ({ as = "a", to, href, className, children, onClick, ...r
 
   const handleMouseMove = useCallback(
     (e) => {
+      if (rest.disabled) return;
       const rect = ref.current.getBoundingClientRect();
       const relX = e.clientX - (rect.left + rect.width / 2);
       const relY = e.clientY - (rect.top + rect.height / 2);
       x.set(relX * MAGNETIC_STRENGTH);
       y.set(relY * MAGNETIC_STRENGTH);
     },
-    [x, y]
+    [x, y, rest.disabled]
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -34,19 +35,21 @@ const MagneticButton = ({ as = "a", to, href, className, children, onClick, ...r
 
   const handleClick = useCallback(
     (e) => {
-      const rect = ref.current.getBoundingClientRect();
-      const id = Date.now() + Math.random();
-      setRipples((prev) => [...prev, { id, cx: e.clientX - rect.left, cy: e.clientY - rect.top }]);
-      setTimeout(() => {
-        setRipples((prev) => prev.filter((r) => r.id !== id));
-      }, 650);
+      if (!rest.disabled) {
+        const rect = ref.current.getBoundingClientRect();
+        const id = Date.now() + Math.random();
+        setRipples((prev) => [...prev, { id, cx: e.clientX - rect.left, cy: e.clientY - rect.top }]);
+        setTimeout(() => {
+          setRipples((prev) => prev.filter((r) => r.id !== id));
+        }, 650);
+      }
       onClick?.(e);
     },
-    [onClick]
+    [onClick, rest.disabled]
   );
 
-  const Component = as === "link" ? MotionLink : motion.a;
-  const targetProp = as === "link" ? { to } : { href };
+  const Component = as === "link" ? MotionLink : as === "button" ? motion.button : motion.a;
+  const targetProp = as === "link" ? { to } : as === "button" ? {} : { href };
 
   return (
     <Component
