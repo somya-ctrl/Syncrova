@@ -5,7 +5,6 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Hero from "../components/hero/Hero";
 import FeatureTimeline from "../components/hero/FeatureTimeline";
 import BrandMark from "../components/hero/BrandMark";
-import CursorLight from "../components/hero/CursorLight";
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);     
@@ -181,8 +180,6 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-
-        <CursorLight zIndex={20} size={350} opacity={0.95} showDot />
       </footer>
     </>
   );

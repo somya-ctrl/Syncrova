@@ -44,7 +44,7 @@ const BrandMark = () => {
       <motion.h2
         ref={textRef}
         style={{ scaleX, scaleY, transformOrigin: "top left" }}
-        className="whitespace-nowrap leading-none font-extrabold tracking-tighter text-[20vw] bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan bg-clip-text text-transparent opacity-[0.16] select-none"
+        className="whitespace-nowrap leading-none font-extrabold tracking-tighter text-[20vw] text-[#C0C0C0]/[0.64] select-none"
       >
         SYNCROVA
       </motion.h2>
