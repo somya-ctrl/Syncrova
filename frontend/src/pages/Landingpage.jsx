@@ -121,8 +121,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <BrandMark />
-
       {/* Footer */}
       <footer className="relative z-10 bg-[#050505] border-t border-white/10 px-8 pt-12 pb-6">
         <div className="max-w-6xl mx-auto">
@@ -169,16 +167,20 @@ const LandingPage = () => {
               </div>
             ))}
           </div>
-
-          <div className="border-t border-white/10 pt-5 flex items-center justify-between">
-            <p className="text-white/30 text-xs">© 2024 Syncrova Inc. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <a href="#" className="text-white/30 text-xs hover:text-white/60 transition">Cookie Policy</a>
-              <a href="#" className="text-white/30 text-xs hover:text-white/60 transition">Security</a>
-            </div>
-          </div>
         </div>
       </footer>
+
+      <BrandMark />
+
+      <div className="relative z-10 bg-[#050505] border-t border-white/10 px-8 py-5">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <p className="text-white/30 text-xs">© 2024 Syncrova Inc. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <a href="#" className="text-white/30 text-xs hover:text-white/60 transition">Cookie Policy</a>
+            <a href="#" className="text-white/30 text-xs hover:text-white/60 transition">Security</a>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

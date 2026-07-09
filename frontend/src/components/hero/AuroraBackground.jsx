@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import Particles from "./Particles";
 
 const AuroraBackground = () => {
   const rootRef = useRef(null);
@@ -101,9 +100,6 @@ const AuroraBackground = () => {
 
       {/* Subtle film grain */}
       <div className="absolute inset-0 bg-grain opacity-[0.035] mix-blend-overlay" />
-
-      {/* Glowing particle field */}
-      <Particles />
 
       {/* Bottom fade into page */}
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#050505] to-transparent" />
