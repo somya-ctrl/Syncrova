@@ -5,6 +5,7 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Hero from "../components/hero/Hero";
 import FeatureTimeline from "../components/hero/FeatureTimeline";
 import BrandMark from "../components/hero/BrandMark";
+import CursorLight from "../components/hero/CursorLight";
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);     
@@ -122,8 +123,8 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 bg-[#050505] border-t border-white/10 px-8 pt-12 pb-6">
-        <div className="max-w-6xl mx-auto">
+      <footer className="relative z-10 overflow-hidden bg-[#050505] border-t border-white/10">
+        <div className="relative z-10 max-w-6xl mx-auto px-8 pt-12 pb-6">
           <div className="flex justify-between items-start mb-10">
             <div className="max-w-xs">
               <div className="flex items-center gap-3 mb-4">
@@ -168,19 +169,21 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-      </footer>
 
-      <BrandMark />
+        <BrandMark />
 
-      <div className="relative z-10 bg-[#050505] border-t border-white/10 px-8 py-5">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <p className="text-white/30 text-xs">© 2024 Syncrova Inc. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <a href="#" className="text-white/30 text-xs hover:text-white/60 transition">Cookie Policy</a>
-            <a href="#" className="text-white/30 text-xs hover:text-white/60 transition">Security</a>
+        <div className="relative z-10 border-t border-white/10 px-8 py-5">
+          <div className="max-w-6xl mx-auto flex items-center justify-between">
+            <p className="text-white/30 text-xs">© 2024 Syncrova Inc. All rights reserved.</p>
+            <div className="flex items-center gap-6">
+              <a href="#" className="text-white/30 text-xs hover:text-white/60 transition">Cookie Policy</a>
+              <a href="#" className="text-white/30 text-xs hover:text-white/60 transition">Security</a>
+            </div>
           </div>
         </div>
-      </div>
+
+        <CursorLight zIndex={20} />
+      </footer>
     </>
   );
 };
