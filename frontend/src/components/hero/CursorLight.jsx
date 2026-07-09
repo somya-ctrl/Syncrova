@@ -4,7 +4,14 @@ import { motion, useMotionValue, useMotionTemplate, useSpring } from "framer-mot
 // Self-contained cursor-follow spotlight — tracks the cursor globally and converts it to
 // coordinates relative to its own bounding box, so the parent just drops it in without wiring
 // up any mouse handlers. Only lights up while the cursor is actually inside its bounds.
-const CursorLight = ({ color = "124,92,255", size = 550, opacity = 0.5, zIndex = 0 }) => {
+const CursorLight = ({
+  color = "124,92,255",
+  size = 550,
+  opacity = 0.5,
+  zIndex = 0,
+  showDot = false,
+  dotSize = 12,
+}) => {
   const ref = useRef(null);
   const mouseX = useMotionValue(-9999);
   const mouseY = useMotionValue(-9999);
@@ -32,12 +39,31 @@ const CursorLight = ({ color = "124,92,255", size = 550, opacity = 0.5, zIndex =
   }, [mouseX, mouseY]);
 
   return (
-    <motion.div
-      ref={ref}
-      className="absolute inset-0 pointer-events-none mix-blend-screen"
-      style={{ background, zIndex }}
-      aria-hidden="true"
-    />
+    <>
+      <motion.div
+        ref={ref}
+        className="absolute inset-0 pointer-events-none mix-blend-screen"
+        style={{ background, zIndex }}
+        aria-hidden="true"
+      />
+      {showDot && (
+        <motion.div
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            left: x,
+            top: y,
+            marginLeft: -dotSize / 2,
+            marginTop: -dotSize / 2,
+            width: dotSize,
+            height: dotSize,
+            backgroundColor: `rgb(${color})`,
+            boxShadow: `0 0 18px 4px rgba(${color},0.9)`,
+            zIndex: zIndex + 1,
+          }}
+          aria-hidden="true"
+        />
+      )}
+    </>
   );
 };
 

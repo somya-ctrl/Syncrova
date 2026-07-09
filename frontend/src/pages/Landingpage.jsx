@@ -182,7 +182,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <CursorLight zIndex={20} />
+        <CursorLight zIndex={20} size={350} opacity={0.95} showDot />
       </footer>
     </>
   );
