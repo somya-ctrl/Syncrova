@@ -3,6 +3,7 @@ import React from "react";
 import Navbar from "../components/landing/Navbar";
 import Features from "../components/landing/Features";
 import Hero from "../components/landing/Hero";
+import Footer from "../components/landing/Footer";
 
 const LandingPage = () => {
   return (
@@ -14,6 +15,8 @@ const LandingPage = () => {
 
         <Features />
       </main>
+
+      <Footer />
     </div>
   );
 };

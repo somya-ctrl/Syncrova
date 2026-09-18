@@ -30,7 +30,7 @@ const WorkspacePreview = () => {
         delay: 0.5,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="relative mx-auto mt-24 w-full max-w-5xl"
+      className="relative mx-auto w-full max-w-[800px] lg:scale-[1.1] lg:origin-left"
     >
       {/* Glow behind preview */}
       <div
@@ -90,7 +90,7 @@ const WorkspacePreview = () => {
             APPLICATION BODY
         ================================================= */}
 
-        <div className="grid min-h-[430px] grid-cols-[190px_1fr]">
+        <div className="grid min-h-[430px] grid-cols-[160px_1fr] sm:grid-cols-[190px_1fr]">
           {/* =================================================
               SIDEBAR
           ================================================= */}
@@ -120,7 +120,7 @@ const WorkspacePreview = () => {
                 <MessageCircle size={17} />
               </div>
 
-              <div className="h-4 w-20 rounded bg-[#ded9ea]" />
+              <div className="h-4 w-16 sm:w-20 rounded bg-[#ded9ea]" />
             </div>
 
             {/* Channels */}
@@ -208,7 +208,7 @@ const WorkspacePreview = () => {
 
               {/* Current user message */}
               <div className="flex justify-end">
-                <div className="max-w-[65%]">
+                <div className="max-w-[85%] sm:max-w-[65%]">
                   <div
                     className="
                       rounded-2xl
@@ -367,6 +367,8 @@ const Hero = () => {
         overflow-hidden
         bg-[#f6f2ff]
         text-[#17151f]
+        flex
+        items-center
       "
     >
       {/* =====================================================
@@ -465,7 +467,7 @@ const Hero = () => {
           relative
           z-10
           mx-auto
-          max-w-7xl
+          max-w-[1400px]
           px-6
           pb-24
           pt-32
@@ -475,10 +477,14 @@ const Hero = () => {
           lg:pt-40
         "
       >
-        <div className="mx-auto max-w-5xl text-center">
-          {/* Heading */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+          {/* =====================================================
+              LEFT TEXT CONTENT
+          ====================================================== */}
+          <div className="max-w-xl text-left">
+            {/* Heading */}
 
-          <motion.h1
+            <motion.h1
             initial={{
               opacity: 0,
               y: 30,
@@ -492,14 +498,14 @@ const Hero = () => {
               ease: [0.22, 1, 0.36, 1],
             }}
             className="
-              text-[52px]
+              text-[42px]
               font-extrabold
               leading-[0.98]
               tracking-[-0.055em]
-              sm:text-[68px]
-              md:text-[82px]
-              lg:text-[92px]
-              xl:text-[100px]
+              sm:text-[52px]
+              md:text-[60px]
+              lg:text-[68px]
+              xl:text-[76px]
             "
           >
             <span className="block text-[#15131d]">Better communication.</span>
@@ -535,9 +541,8 @@ const Hero = () => {
               delay: 0.15,
             }}
             className="
-              mx-auto
               mt-8
-              max-w-3xl
+              max-w-2xl
               text-base
               leading-7
               text-[#69657a]
@@ -571,8 +576,7 @@ const Hero = () => {
               mt-9
               flex
               flex-col
-              items-center
-              justify-center
+              justify-start
               gap-4
               sm:flex-row
             "
@@ -653,13 +657,19 @@ const Hero = () => {
         </div>
 
         {/* =====================================================
-            PRODUCT PREVIEW
+            RIGHT PREVIEW
         ====================================================== */}
-
-        <WorkspacePreview />
+        <div className="relative w-full overflow-visible hidden lg:block">
+           <WorkspacePreview />
+        </div>
+        <div className="relative w-full overflow-visible block lg:hidden">
+           <WorkspacePreview />
+        </div>
+      </div>
       </div>
     </section>
   );
 };
 
 export default Hero;
+
