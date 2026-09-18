@@ -65,7 +65,7 @@ const AuroraBackground = () => {
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
       </motion.div>
-
+ 
       {/* Decorative "network" energy lines — pure ambience, not wired to real DOM positions */}
       <svg
         className="absolute inset-0 w-full h-full opacity-[0.35]"

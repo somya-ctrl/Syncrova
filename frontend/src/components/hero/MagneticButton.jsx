@@ -2,12 +2,20 @@ import React, { useCallback, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 const MAGNETIC_STRENGTH = 0.3;
 
 // x/y are bound via `style`, so callers must use non-transform CSS (glow, background-position) for hover polish, not transform-based hover classes.
-const MagneticButton = ({ as = "a", to, href, className, children, onClick, ...rest }) => {
+const MagneticButton = ({
+  as = "a",
+  to,
+  href,
+  className,
+  children,
+  onClick,
+  ...rest
+}) => {
   const ref = useRef(null);
   const [ripples, setRipples] = useState([]);
 
@@ -25,7 +33,7 @@ const MagneticButton = ({ as = "a", to, href, className, children, onClick, ...r
       x.set(relX * MAGNETIC_STRENGTH);
       y.set(relY * MAGNETIC_STRENGTH);
     },
-    [x, y, rest.disabled]
+    [x, y, rest.disabled],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -38,17 +46,21 @@ const MagneticButton = ({ as = "a", to, href, className, children, onClick, ...r
       if (!rest.disabled) {
         const rect = ref.current.getBoundingClientRect();
         const id = Date.now() + Math.random();
-        setRipples((prev) => [...prev, { id, cx: e.clientX - rect.left, cy: e.clientY - rect.top }]);
+        setRipples((prev) => [
+          ...prev,
+          { id, cx: e.clientX - rect.left, cy: e.clientY - rect.top },
+        ]);
         setTimeout(() => {
           setRipples((prev) => prev.filter((r) => r.id !== id));
         }, 650);
       }
       onClick?.(e);
     },
-    [onClick, rest.disabled]
+    [onClick, rest.disabled],
   );
 
-  const Component = as === "link" ? MotionLink : as === "button" ? motion.button : motion.a;
+  const Component =
+    as === "link" ? MotionLink : as === "button" ? motion.button : motion.a;
   const targetProp = as === "link" ? { to } : as === "button" ? {} : { href };
 
   return (
@@ -69,7 +81,14 @@ const MagneticButton = ({ as = "a", to, href, className, children, onClick, ...r
         <motion.span
           key={r.id}
           className="pointer-events-none absolute rounded-full bg-white/40"
-          style={{ left: r.cx, top: r.cy, width: 10, height: 10, marginLeft: -5, marginTop: -5 }}
+          style={{
+            left: r.cx,
+            top: r.cy,
+            width: 10,
+            height: 10,
+            marginLeft: -5,
+            marginTop: -5,
+          }}
           initial={{ scale: 0, opacity: 0.6 }}
           animate={{ scale: 14, opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
